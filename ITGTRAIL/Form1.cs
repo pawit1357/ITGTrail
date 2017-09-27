@@ -87,7 +87,11 @@ namespace ITGTRAIL
 
         private void button4_Click(object sender, EventArgs e)
         {
-
+            /*
+             * REG: 500
+             * Q: DCPBMAIGNFRXSCHTJAOTVRVQWSNLFLZLSNLIYOTYZCHTXTIZMBKFVVFRRLJMKPAZWFOOBAKWJHFSYHINZPBEGBORRCBTJEFQHVZCZGDEZRVSSGYFAJBATYONLNUZESKEYDFECVUJLMCVBQMTVTPPVQVOMCXTGRXPQTKWMGIVDIQLUXVTJGNKQVGOLWAAIFHACRNMFGQXRWUNRHILDVEKAMOFGVLAVZDYHQTRNEUXMAURLONKJAZCUVYRZJMOXGQXNKHUHWRGIVZDWOFXIVKYSYSDXTJHCSULIFMJJBRAHAYZPJHWQKBQWGMWIYFPIPKVKJBHNWLYTPKYNYTUMHRWZBGRUWWJSOFEHSJAPFHXBUPODJSRUZPQECSPMMEOHQXFTAMFYFTDVCCCNSWH
+             * A: 396
+             */
             Cursor = Cursors.WaitCursor;
 
             char[] inValueChar = textBox1.Text.ToCharArray();
@@ -136,42 +140,73 @@ namespace ITGTRAIL
             }
 
 
-            textBox2.Text = (rawDat.Length - ((xxx.Count==0)? 2: (xxx.Count == 1 ? 1 : 0))).ToString();
+            textBox2.Text = (rawDat.Length - ((xxx.Count == 0) ? 2 : (xxx.Count == 1 ? 1 : 0))).ToString();
             Clipboard.SetText(textBox2.Text);
             Cursor = Cursors.Default;
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
+            /*
+             * REG: 1000
+             * Q: ubqzrgvgugahfbnforemazdauuvqjjndozuhqykobdlyphomzcbpqgtbuyozelgdidarbjljzvfslzsfdnbksfozzfcbbbsalfrskmcuewpiizzffhwvzzwpwzfbntzkblzdqukkzyawggzsnlmzpmifmjzrbpwbvljboctamlgmdqbmslnnkucjcivtbzjzrzcquqnsfwtjibtflnyiyyeiwcgclnibbubryedvlkvcvgftoqkojuzviydpdsjisltjkilaobizqroamqdrimftysnuzoizzpgjoqzdfkizhyylvkqhsqbrvqvpqabnhrbuzqqtwgpitphvdzzgsmlpgzowlrigtagopmjvsvfhqkyrwgaympqplapbzfzzzrdjmspcykaimnnrhkvhydmcbbdzekrueqcpyiglhwvdofwucyrjjqruglmoepkwssjkevlzcflwgnawewohvsfsqnbzzqtbnnzfhkastrrtlaflfhfwkyzsyzimpttdioitynsflmujzcjniqdrezhaldpaafddrybzifurrtfrnzafhjpnnlaaeabsziaozgdnkcrbzlqzzpitzzvjozzjjfsqazwwmhvbfeqkqtuuujhjhknznpsesecyzemgobytvpuknybcvrlcvpzoevfdskyzirwcevsapwgaiyqglwfmhjzjjunlkfmogommwczlhekmwyechrsjssjkblpgsuwodfawhctmmzfnvqnqelnododevvkzsewwcpkdgdncactqhzjcugcgwvhjkqfkjpyqbossbragqigttnrqwgatmjvezfesbcwmzoomzetfgcwfjfznzkzapfuvopfqnkhuwvslogpguwnehnepfdqohdrerbewbkdcvactmtfkzhjpyoczzukznjtloejdnfhmpekvwzfuywiqzjhvhyqpbpukbdmveqwfpzaqstqsddfasaukvcfpzyfnqjlhnouvnfmftybdwtel
+             * A: 449825
+             */
+
             Cursor = Cursors.WaitCursor;
+            DateTime startTime = DateTime.Now;
 
-            char[] inValueChar = textBox1.Text.ToCharArray();
-            Hashtable hashtable = new Hashtable();
+            #region "Original"
+            //Hashtable hashtable = new Hashtable();
+            //for (int i = 0; i < textBox1.Text.Length; i++)
+            //{
+            //    for (int j = 0; j < textBox1.Text.Length - 2; j++)
+            //    {
+            //        String w1 = textBox1.Text.Remove(i, 1);
+            //        String w2 = w1.Remove(j, 1);
+            //        if (!hashtable.Contains(w2))
+            //        {
+            //            hashtable.Add(w2, w2);
+            //        }
+            //    }
+            //}
+            //textBox2.Text = (hashtable.Count + 1) + "";
+            #endregion
 
-
+            var dictionary = new Dictionary<String, String>();
             for (int i = 0; i < textBox1.Text.Length; i++)
             {
                 for (int j = 0; j < textBox1.Text.Length - 2; j++)
                 {
-                    String w1 = textBox1.Text.Remove(i, 1);
-                    String w2 = w1.Remove(j, 1);
-                    if (!hashtable.Contains(w2))
+                    String w = textBox1.Text.Remove(i, 1).Remove(j, 1);
+                    if (!dictionary.ContainsKey(w))
                     {
-                        hashtable.Add(w2, w2);
+                        dictionary.Add(w, w);
                     }
                 }
             }
 
+            textBox2.Text = (dictionary.Count + 1) + "";
 
-            textBox2.Text = (hashtable.Count + 1) + "";
             Clipboard.SetText(textBox2.Text);
+
+            DateTime endTime = DateTime.Now;
+            label1.Text = String.Format("Use time: {0} (s)", endTime.Subtract(startTime).Seconds);
             Cursor = Cursors.Default;
         }
 
 
         private void button6_Click(object sender, EventArgs e)
         {
+            /*
+             * REG: 100 10000
+             * Q: 8703 614 8564 4754 4928 7965 4011 7279 7524 4873 78 9591 2869 6869 5258 8821 9505 8103 5728 7709 2658 7057 6122 1111 6333 3875 676 5408 1720 911 1115 6652 8152 9417 9766 3933 7461 1607 2079 1185 3728 523 4075 5832 7944 9845 1090 7458 5194 5747 1242 210 9160 3609 2901 7788 4666 6274 6327 5907 7962 6662 5966 7529 7710 9066 4499 4401 5950 3418 8279 7922 4523 24 3271 530 7636 6900 1851 9998 4129 2911 4548 412 1952 6058 5159 5289 8087 6360 5695 5657 3424 7044 8050 9716 118 8489 4145 9400
+             * A: R R T R T R T R T R T R R R T T T T T R R T R R R R R T T R R R T R T R T T R R R T T T T R T R T R T R T R T T T R T T T T T R R R R T R R R R T T R T R T T T R T R R T R T T R R R T R R T T R T R R
+             * A: R R T R T R T R T R T R R R T T T T T R R T R R R R R T T R R R T R T R T T R R R T T T T R T R T R T R T R T T T R T T T T T R R R R T R R R R T T R T R T T T R T R R T R T T R R R T R R T T R T R R
+             */
             Cursor = Cursors.WaitCursor;
+            DateTime startTime = DateTime.Now;
+
             String[] times = textBox1.Text.Split(' ');
 
 
@@ -179,68 +214,77 @@ namespace ITGTRAIL
 
             foreach (String p in times)
             {
+                #region "Original"
+                ////
+                //List<int> selectedLists = new List<int>();
+                //bool user = true;//true=T,false=R
+                ////
+                //int rangeLimit = Convert.ToInt16(p);
+                //List<int> lstOfNmbs = listOfNmb(rangeLimit);
+
+                //Boolean isLoop = true;
+                //while (isLoop)
+                //{
+                //    int matchValue = lstOfNmbs.Where(x => IsPrime(x) && !selectedLists.Contains(x)).FirstOrDefault();
+                //    if (matchValue != 0)
+                //    {
+                //        selectedLists.Add(matchValue);
+                //        int mulValue = matchValue * matchValue;
+                //        int matchMulVal = lstOfNmbs.Where(x => x == mulValue).FirstOrDefault();
+                //        if (matchMulVal != 0)
+                //        {
+                //            selectedLists.Add(mulValue);
+                //        }
+                //    }
+                //    else
+                //    {
+                //        if (user)//T
+                //        {
+                //            listOfResult.Add("R");
+                //        }
+                //        else//R
+                //        {
+                //            listOfResult.Add("T");
+                //        }
+                //        isLoop = false;
+                //    }
+
+
+                //    user = !user;
+
+                //}
+                #endregion
+
                 //
-                List<int> selectedLists = new List<int>();
+                List<int> mulValues = new List<int>();
                 bool user = true;//true=T,false=R
                 //
                 int rangeLimit = Convert.ToInt16(p);
-                List<int> lstOfNmbs = listOfNmb(rangeLimit);
-
-                Boolean isLoop = true;
-                while (isLoop)
+                var listOfNmbs = Primes01(rangeLimit);
+                foreach (var i in listOfNmbs)
                 {
-                    int matchValue = lstOfNmbs.Where(x => IsPrime(x) && !selectedLists.Contains(x)).FirstOrDefault();
-                    if (matchValue != 0)
-                    {
-                        selectedLists.Add(matchValue);
-                        int mulValue = matchValue * matchValue;
-                        int matchMulVal = lstOfNmbs.Where(x => x == mulValue).FirstOrDefault();
-                        if (matchMulVal != 0)
-                        {
-                            selectedLists.Add(mulValue);
-                        }
-                        Console.WriteLine();
-                    }
-                    else
-                    {
-                        if (user)//T
-                        {
-                            listOfResult.Add("R");
-                        }
-                        else//R
-                        {
-                            listOfResult.Add("T");
-                        }
-                        isLoop = false;
-
-                    }
                     user = !user;
-                    Console.WriteLine();
-
                 }
+                listOfResult.Add(user ? "T" : "R");
+
             }
+
             textBox2.Text = "";
             textBox2.Text = string.Join(" ", listOfResult);
             Clipboard.SetText(textBox2.Text);
+            DateTime endTime = DateTime.Now;
+            label1.Text = String.Format("Use time: {0} (s)", endTime.Subtract(startTime).Seconds);
             Cursor = Cursors.Default;
         }
         private void button7_Click(object sender, EventArgs e)
         {
+
             /*
-Ques#10 (2 4 6 - 10 1 1)
-2 4 6
-3 3 6
-4 2 6
-4 3 5
-5 2 5
-5 3 4
-6 2 4
-6 3 2
-7 2 2
-7 3 1
-8 2 1
-9 1 1
+             * REG: 3
+             * Q: 2 4 6 - 10 1 1
+             * A: ?
              */
+
             Cursor = Cursors.WaitCursor;
             String[] data = textBox1.Text.Split('-');
             String[] start = data[0].Substring(0, data[0].Length - 1).Split(' ');
@@ -269,6 +313,13 @@ Ques#10 (2 4 6 - 10 1 1)
             Clipboard.SetText(textBox2.Text);
             Cursor = Cursors.Default;
             Console.WriteLine();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "";
+            textBox2.Text = "";
+
         }
 
         #region "Custom Function"
@@ -341,6 +392,7 @@ Ques#10 (2 4 6 - 10 1 1)
             return true;
         }
 
+
         //public IEnumerable<String> SplitInParts(this String s, Int32 partLength)
         //{
         //    if (s == null)
@@ -354,7 +406,7 @@ Ques#10 (2 4 6 - 10 1 1)
 
         #endregion
 
-
+       
     }
 }
 
@@ -376,6 +428,11 @@ static class StringExtensions
 
         for (var i = startPos; i < s.Length - startPos; i += partLength)
             yield return s.Substring(i, Math.Min(partLength, s.Length - i));
+    }
+
+    public static bool IsPrime(this int number)
+    {
+        return (Enumerable.Range(1, number).Where(x => number % x == 0).Count() == 2);
     }
 
 }
