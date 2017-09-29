@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
 namespace ITGTRAIL
 {
+
+    /*
+     * PQJHLM *
+     */
+
     public partial class Form1 : Form
     {
         public Form1()
@@ -280,36 +284,66 @@ namespace ITGTRAIL
         {
 
             /*
-             * REG: 3
-             * Q: 2 4 6 - 10 1 1
-             * A: ?
+             * REG: 30
+             * Q: 5 4 8 10 3 8 3 6 3 7 6 3 4 1 5 10 10 1 8 1 8 6 4 10 8 9 10 3 4 10 - 10 3 10 4 3 8 6 8 5 2 10 4 1 6 1 9 5 10 10 10 8 3 10 3 1 9 8 4 6 1
+             * -------------------------------
+             * ANS:215
+             * QUES:
+             * 7 5 5 - 10 6 1
+             * -------------------------------
+             * 8 4 5
+             * 9 3 5
+             * 10 2 5
+             * 10 3 4
+             * 10 4 3
+             * 10 5 2
+             * 10 6 1
+             * ANS:7
              */
+
+
 
             Cursor = Cursors.WaitCursor;
             String[] data = textBox1.Text.Split('-');
-            String[] start = data[0].Substring(0, data[0].Length - 1).Split(' ');
-            String[] finish = data[1].Substring(1, data[1].Length - 1).Split(' ');
+            String[] values = data[0].Substring(0, data[0].Length - 1).Split(' ');
+            String[] target = data[1].Substring(1, data[1].Length - 1).Split(' ');
 
-            int count = 0;
+
+            int result = 0;
+            int index = 0;
             int pos = 0;
-
-            while (pos < start.Length)
+            //7 5 5 - 10 6 1
+            //4 1 1 - 2 2 2
+            foreach (String _v in values)
             {
-                int _s = Convert.ToInt16(start[pos]);
-                int _f = Convert.ToInt16(finish[pos]);
-                while (_s > _f)
+                int tmp = Convert.ToInt16(_v);
+                int vvvv = Convert.ToInt16(_v);
+                int llll = Convert.ToInt16(target[index]);
+                if (tmp < llll)
                 {
-                    start[pos] = (Convert.ToInt16(start[pos]) - 1).ToString();
-                    start[pos + 1] = (Convert.ToInt16(start[pos + 1]) + 1).ToString();
-                    _s = Convert.ToInt16(start[pos]);
-                    _f = Convert.ToInt16(finish[pos]);
-                    count++;
+                    while (vvvv != llll)
+                    {
+                        values[pos] = (Convert.ToInt16(values[pos]) + 1) + "";
+                        values[pos + 1] = (Convert.ToInt16(values[pos + 1]) - 1) + "";
+                        vvvv++;
+                        result++;
+                    }
+                }
+                else
+                {
+                    while (vvvv != llll)
+                    {
+                        values[pos] = (Convert.ToInt16(values[pos]) - 1) + "";
+                        values[pos + 1] = (Convert.ToInt16(values[pos + 1]) + 1) + "";
+                        vvvv--;
+                        result++;
+                    }
                 }
                 pos++;
-                Console.WriteLine();
+                index++;
             }
 
-            textBox2.Text = count.ToString();
+            textBox2.Text = result + "";
             Clipboard.SetText(textBox2.Text);
             Cursor = Cursors.Default;
             Console.WriteLine();
@@ -406,7 +440,7 @@ namespace ITGTRAIL
 
         #endregion
 
-       
+
     }
 }
 
@@ -436,3 +470,68 @@ static class StringExtensions
     }
 
 }
+
+
+
+
+//'C600000055',
+//'C600000056',
+//'C600000057',
+//'C600000058',
+//'C600000059',
+//'C600000060',
+//'C600000061',
+//'C600000062',
+//'C600000063',
+//'C600000064',
+//'C600000065',
+//'C600000066',
+//'C600000067',
+//'C600000068',
+//'C600000071',
+//'C600000072',
+//'C600000073',
+//'C600000074',
+//'C600000075',
+//'C600000076',
+//'C600000077',
+//'C600000078',
+//'C600000079',
+//'C600000080',
+//'C600000081',
+//'C600000082',
+//'C600000083',
+//'C600000084',
+//'C600000089',
+//'C600000090',
+//'C600000091',
+//'C600000092',
+//'C600000093',
+//'C600000094',
+//'C600000095',
+//'C600000096',
+//'C600000097',
+//'C600000098',
+//'C600000099',
+//'C600000100',
+//'C600000101',
+//'C600000102',
+//'C600000107',
+//'C600000108',
+//'C600000109',
+//'C600000110',
+//'C600000111',
+//'C600000112',
+//'C600000113',
+//'C600000114',
+//'C600000115',
+//'C600000116',
+//'C600000117',
+//'C600000118',
+//'R600000015',
+//'R600000016',
+//'R600000017',
+//'R600000018',
+
+//'C590100003
+//'C590100007

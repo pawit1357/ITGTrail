@@ -56,7 +56,7 @@
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.Red;
+            this.button4.ForeColor = System.Drawing.Color.Green;
             this.button4.Location = new System.Drawing.Point(542, 187);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(89, 39);
@@ -67,6 +67,8 @@
             // 
             // button3
             // 
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.ForeColor = System.Drawing.Color.Green;
             this.button3.Location = new System.Drawing.Point(542, 143);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(89, 39);
@@ -77,6 +79,8 @@
             // 
             // button2
             // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.Color.Green;
             this.button2.Location = new System.Drawing.Point(542, 98);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(89, 39);
@@ -95,6 +99,8 @@
             // 
             // button1
             // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.Green;
             this.button1.Location = new System.Drawing.Point(542, 54);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(89, 39);
@@ -111,6 +117,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(524, 173);
             this.textBox1.TabIndex = 7;
+            this.textBox1.Text = "2 4 6 - 10 1 1";
             // 
             // label1
             // 
@@ -124,7 +131,7 @@
             // button6
             // 
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.Color.Red;
+            this.button6.ForeColor = System.Drawing.Color.Green;
             this.button6.Location = new System.Drawing.Point(637, 9);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(89, 39);
@@ -161,7 +168,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(732, 250);
+            this.ClientSize = new System.Drawing.Size(736, 250);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
