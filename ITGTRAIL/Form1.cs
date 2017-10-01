@@ -63,6 +63,7 @@ namespace ITGTRAIL
                 }
             }
             textBox2.Text = result.ToString();
+            Clipboard.SetText(textBox2.Text);
             Console.WriteLine();
         }
 
@@ -427,6 +428,7 @@ namespace ITGTRAIL
         }
 
 
+
         //public IEnumerable<String> SplitInParts(this String s, Int32 partLength)
         //{
         //    if (s == null)
@@ -440,7 +442,12 @@ namespace ITGTRAIL
 
         #endregion
 
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
 
+            textBox5.Text = (Convert.(textBox4.Text) * Convert.ToInt64(textBox3.Text))+"";
+            Clipboard.SetText(textBox5.Text);
+        }
     }
 }
 
