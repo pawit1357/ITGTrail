@@ -103,6 +103,7 @@ namespace ITGTRAIL
             String rawDat = textBox1.Text;
             Hashtable hashtable = new Hashtable();
 
+
             int index = 0;
             while (index < inValueChar.Length)
             {
@@ -315,39 +316,44 @@ namespace ITGTRAIL
             int pos = 0;
             //7 5 5 - 10 6 1
             //4 1 1 - 2 2 2
-            foreach (String _v in values)
+            try
             {
-                int tmp = Convert.ToInt16(_v);
-                int vvvv = Convert.ToInt16(_v);
-                int llll = Convert.ToInt16(target[index]);
-                if (tmp < llll)
+                foreach (String _v in values)
                 {
-                    while (vvvv != llll)
+                    int tmp = Convert.ToInt16(_v);
+                    int vvvv = Convert.ToInt16(_v);
+                    int llll = Convert.ToInt16(target[index]);
+                    if (tmp < llll)
                     {
-                        values[pos] = (Convert.ToInt16(values[pos]) + 1) + "";
-                        values[pos + 1] = (Convert.ToInt16(values[pos + 1]) - 1) + "";
-                        vvvv++;
-                        result++;
+                        while (vvvv != llll)
+                        {
+                            values[pos] = (Convert.ToInt16(values[pos]) + 1) + "";
+                            values[pos + 1] = (Convert.ToInt16(values[pos + 1]) - 1) + "";
+                            vvvv++;
+                            result++;
+                        }
                     }
-                }
-                else
-                {
-                    while (vvvv != llll)
+                    else
                     {
-                        values[pos] = (Convert.ToInt16(values[pos]) - 1) + "";
-                        values[pos + 1] = (Convert.ToInt16(values[pos + 1]) + 1) + "";
-                        vvvv--;
-                        result++;
+                        while (vvvv != llll)
+                        {
+                            values[pos] = (Convert.ToInt16(values[pos]) - 1) + "";
+                            values[pos + 1] = (Convert.ToInt16(values[pos + 1]) + 1) + "";
+                            vvvv--;
+                            result++;
+                        }
                     }
+                    pos++;
+                    index++;
                 }
-                pos++;
-                index++;
             }
-
+            catch (Exception ex)
+            {
+                result = -1;
+            }
             textBox2.Text = result + "";
             Clipboard.SetText(textBox2.Text);
             Cursor = Cursors.Default;
-            Console.WriteLine();
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -356,6 +362,182 @@ namespace ITGTRAIL
             textBox2.Text = "";
 
         }
+
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+            textBox5.Text = (Convert.ToInt64(textBox4.Text) * Convert.ToInt64(textBox3.Text)) + "";
+            Clipboard.SetText(textBox5.Text);
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            String[] datas = textBox1.Text.Split(' ');
+            int[] listOfData = new int[datas.Length];
+            List<int> resulttttt = new List<int>();
+            int index = 0;
+            foreach (String s in datas)
+            {
+                listOfData[index] = Convert.ToInt32(s);
+                index++;
+            }
+            Array.Sort<int>(listOfData,
+                              new Comparison<int>(
+                                      (i1, i2) => i2.CompareTo(i1)
+                              )); Console.WriteLine();
+
+
+            int gameResult = 0;
+            for (int i = 0; i < listOfData.Length; i++)
+            {
+                int compare = listOfData[i];
+                foreach (String s in datas)
+                {
+                    int value = Convert.ToInt32(s);
+                    gameResult += Math.Abs((compare - value));
+                    Console.WriteLine();
+                }
+                resulttttt.Add(gameResult * 100);
+                gameResult = 0;
+            }
+
+            Console.WriteLine();
+            resulttttt.Sort();
+            textBox2.Text = resulttttt[0] + "";
+            Clipboard.SetText(textBox2.Text);
+            Cursor = Cursors.Default;
+
+        }
+        private void button10_Click(object sender, EventArgs e)
+        {
+            //QUES: 23 -13 12 28
+            String[] datas = textBox1.Text.Split(' ');
+
+            int x = Convert.ToInt32(datas[0]);
+            int y = Convert.ToInt32(datas[1]);
+
+            int v = Convert.ToInt32(datas[2]);
+            int u = Convert.ToInt32(datas[3]);
+
+            int time = 0;
+            for (int _y = 0; _y > y; _y -= v)
+            {
+
+                for (int _x = 0; _x < x; _x += u)
+                {
+                    if (_x > x)
+                    {
+                        Console.WriteLine();
+                    }
+                    time++;
+                }
+
+
+            }
+
+            Console.WriteLine();
+
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            //870 145 383 484 368 1000 318 836 596 488 30 77 489 155 496 199 811 423 951 533 279 539 68 842 388 937 686 14 125 911 716 803 162 381 32 730 620 254 402 491 386 610 877 404 141 738 731 88 25 958
+            int result = 0;
+            String[] datas = textBox1.Text.Split(' ');
+            int[] dataAsc = new int[datas.Length];
+            //List<int> resulttttt = new List<int>();
+            int index = 0;
+            foreach (String s in datas)
+            {
+                dataAsc[index] = Convert.ToInt32(s);
+                index++;
+            }
+            Array.Sort<int>(dataAsc,
+                              new Comparison<int>(
+                                      (i1, i2) => i2.CompareTo(i1)
+                              )); Console.WriteLine();
+            int i = 0;
+            Boolean isLoop = true;
+            while (isLoop)
+            {
+                if (i > dataAsc.Length) break;
+                if (i + 1 > dataAsc.Length) break;
+                if (i + 2 > dataAsc.Length) break;
+
+                int digit01 = Convert.ToInt32(dataAsc[i]);
+                int digit02 = Convert.ToInt32(dataAsc[i + 1]);
+                int digit03 = Convert.ToInt32(dataAsc[i + 2]);
+                if ((digit02 + digit03) >= digit01)
+                {
+                    result = digit01 + digit02 + digit03;
+                    break;
+                }
+                i++;
+            }
+
+
+            textBox2.Text = result + "";
+            Clipboard.SetText(textBox2.Text);
+            Cursor = Cursors.Default;
+        }
+        private void button12_Click(object sender, EventArgs e)
+        {
+            //1000 4
+            int M = Convert.ToInt16(textBox1.Text.Split(' ')[0]);
+            int N = Convert.ToInt16(textBox1.Text.Split(' ')[1]);
+            int result = M / 8;
+            int tmp = result;
+            int tmp1 = 0;
+            while (tmp / N > 0)
+            {
+                tmp1 = tmp % N;
+                tmp = ((tmp + tmp1) / N);
+                result += tmp;
+            }
+
+            textBox2.Text = result + "";
+            Clipboard.SetText(textBox2.Text);
+        }
+
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            /*
+             29 30 31 33 34 36 39 42 48 49 50 51 53 55 56 58 61 64 67 69 70 73 75 78 80 82 83 86 87 92 94 95 97 98 99 100 101 103 105 106 113 118 122 123 124 125 127 128 129 131 139 140 141 142 145 150 151 155 156 158 160 161 164 166 168 169 173 177 178 179 181 184 185 186 187 188 189 190 191 192 193 194 195 196 200 201 202 206 207 209 210 212 213 214 216 218 221 223 224 226
+             
+             
+             */
+            String[] datas = textBox1.Text.Split(' ');
+            int result = 1;
+            for (int i = 0; i < datas.Length - 1; i++)
+            {
+                try
+                {
+                    if (i + 1 == datas.Length - 1 && String.IsNullOrEmpty(datas[i + 1]))
+                    {
+                        break;
+                    }
+
+                    int val1 = Convert.ToInt32(datas[i]);
+                    int val2 = Convert.ToInt32(datas[i + 1]);
+                    if (val2 - val1 > 1)
+                    {
+                        result++;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                Console.WriteLine();
+
+            }
+            textBox2.Text = result + "";
+            Clipboard.SetText(textBox2.Text);
+            Console.WriteLine();
+        }
+
 
         #region "Custom Function"
 
@@ -428,25 +610,127 @@ namespace ITGTRAIL
         }
 
 
-
-        //public IEnumerable<String> SplitInParts(this String s, Int32 partLength)
-        //{
-        //    if (s == null)
-        //        throw new ArgumentNullException("s");
-        //    if (partLength <= 0)
-        //        throw new ArgumentException("Part length has to be positive.", "partLength");
-
-        //    for (var i = 0; i < s.Length; i += partLength)
-        //        yield return s.Substring(i, Math.Min(partLength, s.Length - i));
-        //}
-
         #endregion
 
-        private void textBox3_TextChanged(object sender, EventArgs e)
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.C && e.Modifiers == Keys.Control)
+            {
+
+                MessageBox.Show("You pressed ctrl + c");
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
-            textBox5.Text = (Convert.(textBox4.Text) * Convert.ToInt64(textBox3.Text))+"";
-            Clipboard.SetText(textBox5.Text);
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            int result = 0;
+            int R = 4;
+            int C = 4;
+            String[] datas = textBox1.Text.Split(' ');
+            int RN = Convert.ToInt16(datas[1]);
+            int CN = Convert.ToInt16(datas[2]);
+            String rawData = datas[0];
+            StringBuilder aStringBuilder = new StringBuilder(rawData);
+
+            int _RN = 0;
+            int _CN = 0;
+            List<String> Rows = getListRow(rawData, C);
+
+
+            Hashtable hResult = new Hashtable();
+            while (true)
+            {
+                //time 1#
+                for (int pos = 0; pos < rawData.Length; pos++)
+                {
+                    String posData = aStringBuilder[pos].ToString().Equals("1") ? "0" : "1";
+
+                    aStringBuilder.Remove(pos, 1);
+                    aStringBuilder.Insert(pos, posData);
+                    Rows = getListRow(aStringBuilder.ToString(), C);
+                    foreach (String str in Rows)
+                    {
+                        Boolean isPri = IsPalindrome(str);
+                        if (isPri)
+                        {
+                            _RN++;
+                        }
+                    }
+                    List<String> Cols = getListCol(aStringBuilder.ToString(), C);
+                    foreach (String str in Cols)
+                    {
+                        Boolean isPri = IsPalindrome(str);
+                        if (isPri)
+                        {
+                            _CN++;
+                        }
+                    }
+                    hResult.Add(pos, _RN + "|" + _CN);
+                    _RN = 0;
+                    _CN = 0;
+
+                    aStringBuilder = new StringBuilder(rawData);
+
+                }
+            }
+
+
+            Console.WriteLine();
+        }
+
+        public List<String> getListRow(String rawData, int C)
+        {
+            List<String> Rows = new List<string>();
+
+            for (int x = 0; x < rawData.Length; x += C)
+            {
+                String str = rawData.Substring(x, 4);
+                Rows.Add(str);
+            }
+            return Rows;
+        }
+        public List<String> getListCol(String rawData, int R)
+        {
+            List<String> RowsCol = new List<string>();
+            List<String> Rows = getListRow(rawData, R);
+            for (int c = 0; c < R; c++)
+            {
+                String str = "";
+                for (int r = 0; r < R; r++)
+                {
+
+                    str += Rows[r][c];
+                }
+                RowsCol.Add(str);
+
+            }
+
+            return RowsCol;
+        }
+        public bool IsPalindrome(string value)
+        {
+            int min = 0;
+            int max = value.Length - 1;
+            while (true)
+            {
+                if (min > max)
+                {
+                    return true;
+                }
+                char a = value[min];
+                char b = value[max];
+                if (char.ToLower(a) != char.ToLower(b))
+                {
+                    return false;
+                }
+                min++;
+                max--;
+            }
         }
     }
 }
@@ -474,6 +758,13 @@ static class StringExtensions
     public static bool IsPrime(this int number)
     {
         return (Enumerable.Range(1, number).Where(x => number % x == 0).Count() == 2);
+    }
+
+
+    public static string ReplaceAt(this string str, int index, int length, string replace)
+    {
+        return str.Remove(index, Math.Min(length, str.Length - index))
+                .Insert(index, replace);
     }
 
 }
