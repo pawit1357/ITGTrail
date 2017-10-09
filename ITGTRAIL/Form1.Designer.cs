@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -41,6 +42,8 @@
             this.button8 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button15 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
@@ -52,7 +55,7 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.button14 = new System.Windows.Forms.Button();
+            this.button16 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -61,7 +64,7 @@
             // button5
             // 
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.Red;
+            this.button5.ForeColor = System.Drawing.Color.Green;
             this.button5.Location = new System.Drawing.Point(536, 51);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(89, 39);
@@ -134,7 +137,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(524, 173);
             this.textBox1.TabIndex = 7;
-            this.textBox1.Text = "1100100111101010 1 2";
+            this.textBox1.Text = resources.GetString("textBox1.Text");
             // 
             // label1
             // 
@@ -161,7 +164,7 @@
             // button7
             // 
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.ForeColor = System.Drawing.Color.Red;
+            this.button7.ForeColor = System.Drawing.Color.Green;
             this.button7.Location = new System.Drawing.Point(631, 6);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(89, 39);
@@ -190,11 +193,13 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(741, 301);
+            this.tabControl1.Size = new System.Drawing.Size(795, 301);
             this.tabControl1.TabIndex = 18;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button16);
+            this.tabPage1.Controls.Add(this.button15);
             this.tabPage1.Controls.Add(this.button14);
             this.tabPage1.Controls.Add(this.button13);
             this.tabPage1.Controls.Add(this.button12);
@@ -214,10 +219,34 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(733, 272);
+            this.tabPage1.Size = new System.Drawing.Size(787, 272);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button15
+            // 
+            this.button15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button15.ForeColor = System.Drawing.Color.Green;
+            this.button15.Location = new System.Drawing.Point(101, 226);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(89, 39);
+            this.button15.TabIndex = 23;
+            this.button15.Text = "Q94";
+            this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.button15_Click);
+            // 
+            // button14
+            // 
+            this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button14.ForeColor = System.Drawing.Color.Green;
+            this.button14.Location = new System.Drawing.Point(441, 226);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(89, 39);
+            this.button14.TabIndex = 22;
+            this.button14.Text = "Q14";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // button13
             // 
@@ -289,7 +318,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(733, 272);
+            this.tabPage2.Size = new System.Drawing.Size(787, 272);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -337,23 +366,23 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "SUM Total Penalty";
             // 
-            // button14
+            // button16
             // 
-            this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button14.ForeColor = System.Drawing.Color.Green;
-            this.button14.Location = new System.Drawing.Point(441, 226);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(89, 39);
-            this.button14.TabIndex = 22;
-            this.button14.Text = "Q14";
-            this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.button14_Click);
+            this.button16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button16.ForeColor = System.Drawing.Color.Green;
+            this.button16.Location = new System.Drawing.Point(196, 227);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(89, 39);
+            this.button16.TabIndex = 24;
+            this.button16.Text = "Q95";
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(764, 365);
+            this.ClientSize = new System.Drawing.Size(839, 365);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.button8);
             this.Name = "Form1";
@@ -396,5 +425,7 @@
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.Button button16;
     }
 }

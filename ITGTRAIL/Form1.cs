@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Utils;
 
 namespace ITGTRAIL
 {
@@ -488,12 +489,22 @@ namespace ITGTRAIL
             int N = Convert.ToInt16(textBox1.Text.Split(' ')[1]);
             int result = M / 8;
             int tmp = result;
-            int tmp1 = 0;
+            //int tmp1 = 0;
+            int index = 0;
             while (tmp / N > 0)
             {
-                tmp1 = tmp % N;
-                tmp = ((tmp + tmp1) / N);
-                result += tmp;
+                int main = tmp / N;
+                result += main;
+                int remain = tmp % N;
+                tmp = main + remain;
+                Console.WriteLine();
+                
+
+                //    tmp1 = tmp % N;
+                
+                //tmp = ((tmp + ((index==0)? 0:tmp1)) / N);
+                //result += tmp;
+                index++;
             }
 
             textBox2.Text = result + "";
@@ -626,25 +637,45 @@ namespace ITGTRAIL
 
         }
 
+        int _RN = 0;
+        int _CN = 0;
+        int totalRn = 0;
+        int totalCn = 0;
         private void button14_Click(object sender, EventArgs e)
         {
+            Cursor = Cursors.WaitCursor;
+
             int result = 0;
-            int R = 4;
-            int C = 4;
+
             String[] datas = textBox1.Text.Split(' ');
-            int RN = Convert.ToInt16(datas[1]);
-            int CN = Convert.ToInt16(datas[2]);
-            String rawData = datas[0];
-            StringBuilder aStringBuilder = new StringBuilder(rawData);
+            int R = Convert.ToInt16(datas[0]);
+            int C = Convert.ToInt16(datas[1]);
+            String rawData = datas[2];
+            int RN = Convert.ToInt16(datas[3]);
+            int CN = Convert.ToInt16(datas[4]);
 
-            int _RN = 0;
-            int _CN = 0;
-            List<String> Rows = getListRow(rawData, C);
+            var dictionary = new Dictionary<String, String>();
 
-
-            Hashtable hResult = new Hashtable();
-            while (true)
+            for (int i = 0; i < rawData.Length; i++)
             {
+                for (int j = 0; j < rawData.Length ; j++)
+                {
+                    String posData = rawData[j].ToString().Equals("1") ? "0" : "1";
+                }
+            }
+
+
+
+                    StringBuilder aStringBuilder = new StringBuilder(rawData);
+
+        
+            Boolean isLoop = true;
+            while (isLoop)
+            {
+                SortedDictionary<int, Q14XXX> dict = new SortedDictionary<int, Q14XXX>();
+
+
+
                 //time 1#
                 for (int pos = 0; pos < rawData.Length; pos++)
                 {
@@ -652,59 +683,134 @@ namespace ITGTRAIL
 
                     aStringBuilder.Remove(pos, 1);
                     aStringBuilder.Insert(pos, posData);
-                    Rows = getListRow(aStringBuilder.ToString(), C);
-                    foreach (String str in Rows)
+                    List<String> Rows = getListRow(aStringBuilder.ToString(), C);
+                    List<String> Cols = getListCol(Rows);
+
+                    if (!dict.ContainsKey((_CN + _RN)))
                     {
-                        Boolean isPri = IsPalindrome(str);
-                        if (isPri)
-                        {
-                            _RN++;
-                        }
+                        Q14XXX q14XXX = new Q14XXX();
+                        q14XXX.POS = pos;
+                        q14XXX.CN = _CN;
+                        q14XXX.RN = _RN;
+                        dict.Add((_CN + _RN), q14XXX);
                     }
-                    List<String> Cols = getListCol(aStringBuilder.ToString(), C);
-                    foreach (String str in Cols)
-                    {
-                        Boolean isPri = IsPalindrome(str);
-                        if (isPri)
-                        {
-                            _CN++;
-                        }
-                    }
-                    hResult.Add(pos, _RN + "|" + _CN);
                     _RN = 0;
                     _CN = 0;
 
                     aStringBuilder = new StringBuilder(rawData);
 
                 }
+
+                result++;
+                ///////
+                Q14XXX xxx = dict.Values.LastOrDefault();
+                if (xxx != null)
+                {
+                    int nextPos = xxx.POS == 0 ? (result%R) : xxx.POS;
+                    String posData = aStringBuilder[nextPos].ToString().Equals("1") ? "0" : "1";
+
+                    aStringBuilder.Remove(nextPos, 1);
+                    aStringBuilder.Insert(nextPos, posData);
+                    totalCn += xxx.CN;
+                    totalRn += xxx.RN;
+                    if (totalCn > 0)
+                    {
+                        Console.WriteLine();
+                    }
+                    if(totalCn>=CN && totalRn >= RN)
+                    {
+                        isLoop = false;
+                    }
+                }
+
+
             }
-
-
+           
             Console.WriteLine();
+
+            textBox2.Text = result + "";
+            Clipboard.SetText(textBox2.Text);
+            Console.WriteLine();
+            Cursor = Cursors.Default;
+
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            //17 45 12 13 20 01
+            //Dictionary<double, double> dict = new Dictionary<double, double>();
+
+            String[] datas = textBox1.Text.Split(' ');
+            DateTime _curTime = new DateTime(1, 1, 1, Convert.ToInt16(datas[0]), Convert.ToInt16(datas[1]), 0);
+            double min = double.MaxValue;
+            for (int i = 2; i < datas.Length; i += 2)
+            {
+                double rsult = 0;
+                DateTime _checkSeq = new DateTime(1, 1, 1, Convert.ToInt16(datas[i]), Convert.ToInt16(datas[i+1]), 0);
+                if(_checkSeq.Subtract(_curTime).Minutes < 0)
+                {
+                    DateTime checkSeq2 = _checkSeq.AddDays(1);
+                    rsult = checkSeq2.Subtract(_curTime).TotalMinutes;
+                    Console.WriteLine();
+                }
+                else
+                {
+                    rsult = _checkSeq.Subtract(_curTime).TotalMinutes;
+
+                }
+                if (rsult < min)
+                {
+                    min = rsult;
+                }
+                Console.WriteLine();
+
+
+            }
+            
+
+            textBox2.Text = min + "";
+            Clipboard.SetText(textBox2.Text);
+            Console.WriteLine();
+
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            char[] arr = textBox1.Text.ToCharArray();
+            Array.Reverse(arr);
+            textBox2.Text = new string(arr);
+            Clipboard.SetText(textBox2.Text);
         }
 
         public List<String> getListRow(String rawData, int C)
         {
             List<String> Rows = new List<string>();
-
             for (int x = 0; x < rawData.Length; x += C)
             {
-                String str = rawData.Substring(x, 4);
+                String str = rawData.Substring(x, C);
+                if (IsPalindrome(str))
+                {
+                   _RN++;
+                }
                 Rows.Add(str);
             }
+            Console.WriteLine();
             return Rows;
         }
-        public List<String> getListCol(String rawData, int R)
+        public List<String> getListCol(List<String> Rows)
         {
             List<String> RowsCol = new List<string>();
-            List<String> Rows = getListRow(rawData, R);
-            for (int c = 0; c < R; c++)
+            for (int c = 0; c < Rows.Count; c++)
             {
                 String str = "";
-                for (int r = 0; r < R; r++)
+                for (int r = 0; r < Rows.Count; r++)
                 {
 
                     str += Rows[r][c];
+                }
+                if (IsPalindrome(str))
+                {
+                    _CN++;
                 }
                 RowsCol.Add(str);
 
@@ -712,6 +818,99 @@ namespace ITGTRAIL
 
             return RowsCol;
         }
+
+        private int FindNextPaladindrone(int value)
+        {
+            int result = 0;
+            bool found = false;
+
+            while (!found)
+            {
+                value++;
+                found = IsPalindroneInt(value);
+                if (found)
+                    result = value;
+            }
+
+            return result;
+        }
+        private bool IsPalindroneInt(int number)
+        {
+            string numberString = number.ToString();
+            int backIndex;
+
+            bool same = true;
+            for (int i = 0; i < numberString.Length; i++)
+            {
+                backIndex = numberString.Length - (i + 1);
+                if (i == backIndex || backIndex < i)
+                    break;
+                else
+                {
+                    if (numberString[i] != numberString[backIndex])
+                    {
+                        same = false;
+                        break;
+                    }
+                }
+            }
+            return same;
+        }
+        //public static BigInteger NextPalindrome(BigInteger input)
+        //{
+        //    string firstHalf = input.ToString().Substring(0, (input.ToString().Length + 1) / 2);
+        //    string incrementedFirstHalf = (BigInteger.Parse(firstHalf) + 1).ToString();
+        //    var candidates = new List<string>();
+        //    candidates.Add(firstHalf + new String(firstHalf.Reverse().ToArray()));
+        //    candidates.Add(firstHalf + new String(firstHalf.Reverse().Skip(1).ToArray()));
+        //    candidates.Add(incrementedFirstHalf + new String(incrementedFirstHalf.Reverse().ToArray()));
+        //    candidates.Add(incrementedFirstHalf + new String(incrementedFirstHalf.Reverse().Skip(1).ToArray()));
+        //    candidates.Add("1" + new String('0', input.ToString().Length - 1) + "1");
+        //    return candidates.Select(s => BigInteger.Parse(s))
+        //              .Where(i => i > input)
+        //              .OrderBy(i => i)
+        //              .First();
+        //}
+        //public List<String> getListRow(String rawData, int C)
+        //{
+        //    List<String> Rows = new List<string>();
+        //    int palindome = 0;
+        //    for (int x = 0; x < rawData.Length; x += C)
+        //    {
+        //        String str = rawData.Substring(x, C);
+        //        if (IsPalindrome(str))
+        //        {
+        //            palindome++;
+        //        }
+        //        Rows.Add(str);
+        //    }
+        //    Console.WriteLine();
+        //    return Rows;
+        //}
+        //public List<String> getListCol(String rawData, List<String> Rows)
+        //{
+        //    List<String> RowsCol = new List<string>();
+        //    int palindome = 0;
+
+        //    for (int c = 0; c < Rows.Count; c++)
+        //    {
+        //        String str = "";
+        //        for (int r = 0; r < Rows.Count; r++)
+        //        {
+
+        //            str += Rows[r][c];
+        //        }
+        //        if (IsPalindrome(str))
+        //        {
+        //            palindome++;
+        //        }
+        //        RowsCol.Add(str);
+
+        //    }
+
+        //    return RowsCol;
+        //}
+
         public bool IsPalindrome(string value)
         {
             int min = 0;
@@ -732,6 +931,8 @@ namespace ITGTRAIL
                 max--;
             }
         }
+
+      
     }
 }
 
@@ -740,7 +941,12 @@ public class Q06Result
     public String word { get; set; }
     public int count { get; set; }
 }
-
+public class Q14XXX
+{
+    public int POS { get; set; }
+    public int RN { get; set; }
+    public int CN { get; set; }
+}
 static class StringExtensions
 {
 
