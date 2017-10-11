@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Facet.Combinatorics;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using Utils;
 
 namespace ITGTRAIL
 {
@@ -28,6 +29,9 @@ namespace ITGTRAIL
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // 30 20
+            //31145441163313954041 30
+            //L 9 XXX
             String[] L = { "1", "5", "8", "9" };
             String[] U = { "4", "6" };
 
@@ -221,46 +225,6 @@ namespace ITGTRAIL
 
             foreach (String p in times)
             {
-                #region "Original"
-                ////
-                //List<int> selectedLists = new List<int>();
-                //bool user = true;//true=T,false=R
-                ////
-                //int rangeLimit = Convert.ToInt16(p);
-                //List<int> lstOfNmbs = listOfNmb(rangeLimit);
-
-                //Boolean isLoop = true;
-                //while (isLoop)
-                //{
-                //    int matchValue = lstOfNmbs.Where(x => IsPrime(x) && !selectedLists.Contains(x)).FirstOrDefault();
-                //    if (matchValue != 0)
-                //    {
-                //        selectedLists.Add(matchValue);
-                //        int mulValue = matchValue * matchValue;
-                //        int matchMulVal = lstOfNmbs.Where(x => x == mulValue).FirstOrDefault();
-                //        if (matchMulVal != 0)
-                //        {
-                //            selectedLists.Add(mulValue);
-                //        }
-                //    }
-                //    else
-                //    {
-                //        if (user)//T
-                //        {
-                //            listOfResult.Add("R");
-                //        }
-                //        else//R
-                //        {
-                //            listOfResult.Add("T");
-                //        }
-                //        isLoop = false;
-                //    }
-
-
-                //    user = !user;
-
-                //}
-                #endregion
 
                 //
                 List<int> mulValues = new List<int>();
@@ -303,7 +267,6 @@ namespace ITGTRAIL
              * 10 6 1
              * ANS:7
              */
-
 
 
             Cursor = Cursors.WaitCursor;
@@ -498,12 +461,6 @@ namespace ITGTRAIL
                 int remain = tmp % N;
                 tmp = main + remain;
                 Console.WriteLine();
-                
-
-                //    tmp1 = tmp % N;
-                
-                //tmp = ((tmp + ((index==0)? 0:tmp1)) / N);
-                //result += tmp;
                 index++;
             }
 
@@ -658,7 +615,7 @@ namespace ITGTRAIL
 
             for (int i = 0; i < rawData.Length; i++)
             {
-                for (int j = 0; j < rawData.Length ; j++)
+                for (int j = 0; j < rawData.Length; j++)
                 {
                     String posData = rawData[j].ToString().Equals("1") ? "0" : "1";
                 }
@@ -666,9 +623,9 @@ namespace ITGTRAIL
 
 
 
-                    StringBuilder aStringBuilder = new StringBuilder(rawData);
+            StringBuilder aStringBuilder = new StringBuilder(rawData);
 
-        
+
             Boolean isLoop = true;
             while (isLoop)
             {
@@ -706,7 +663,7 @@ namespace ITGTRAIL
                 Q14XXX xxx = dict.Values.LastOrDefault();
                 if (xxx != null)
                 {
-                    int nextPos = xxx.POS == 0 ? (result%R) : xxx.POS;
+                    int nextPos = xxx.POS == 0 ? (result % R) : xxx.POS;
                     String posData = aStringBuilder[nextPos].ToString().Equals("1") ? "0" : "1";
 
                     aStringBuilder.Remove(nextPos, 1);
@@ -717,7 +674,7 @@ namespace ITGTRAIL
                     {
                         Console.WriteLine();
                     }
-                    if(totalCn>=CN && totalRn >= RN)
+                    if (totalCn >= CN && totalRn >= RN)
                     {
                         isLoop = false;
                     }
@@ -725,7 +682,7 @@ namespace ITGTRAIL
 
 
             }
-           
+
             Console.WriteLine();
 
             textBox2.Text = result + "";
@@ -746,8 +703,8 @@ namespace ITGTRAIL
             for (int i = 2; i < datas.Length; i += 2)
             {
                 double rsult = 0;
-                DateTime _checkSeq = new DateTime(1, 1, 1, Convert.ToInt16(datas[i]), Convert.ToInt16(datas[i+1]), 0);
-                if(_checkSeq.Subtract(_curTime).Minutes < 0)
+                DateTime _checkSeq = new DateTime(1, 1, 1, Convert.ToInt16(datas[i]), Convert.ToInt16(datas[i + 1]), 0);
+                if (_checkSeq.Subtract(_curTime).Minutes < 0)
                 {
                     DateTime checkSeq2 = _checkSeq.AddDays(1);
                     rsult = checkSeq2.Subtract(_curTime).TotalMinutes;
@@ -766,7 +723,7 @@ namespace ITGTRAIL
 
 
             }
-            
+
 
             textBox2.Text = min + "";
             Clipboard.SetText(textBox2.Text);
@@ -782,6 +739,196 @@ namespace ITGTRAIL
             Clipboard.SetText(textBox2.Text);
         }
 
+        private void button17_Click(object sender, EventArgs e)
+        {
+            List<String> listOfResult = new List<string>();
+            String[] datas = textBox1.Text.Split(' ');
+
+            DateTime _curTime = new DateTime(1, 1, 1, Convert.ToInt16(datas[1]), Convert.ToInt16(datas[2]), 0);
+            _curTime = _curTime.AddHours(Convert.ToInt16(datas[0]));
+            listOfResult.Add(_curTime.ToString("HH mm"));
+
+            for (int i = 3; i < datas.Length; i++)
+            {
+                _curTime = _curTime.AddMinutes(Convert.ToInt16(datas[i]));
+                listOfResult.Add(_curTime.ToString("HH mm"));
+            }
+
+
+
+            textBox2.Text = string.Join(" ", listOfResult);
+            Clipboard.SetText(textBox2.Text);
+            Console.WriteLine();
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            int[] result = new int[10];
+            String[] datas = textBox1.Text.Split(' ');
+            int regist = Convert.ToInt16(datas[0]);
+            int start = Convert.ToInt16(datas[1]);
+            StringBuilder sb = new StringBuilder();
+            for (int i = start; i <= regist; i++)
+            {
+                sb.Append(i + "");
+            }
+
+            result[0] = Regex.Matches(sb.ToString(), "0").Count;
+            result[1] = Regex.Matches(sb.ToString(), "1").Count;
+            result[2] = Regex.Matches(sb.ToString(), "2").Count;
+            result[3] = Regex.Matches(sb.ToString(), "3").Count;
+            result[4] = Regex.Matches(sb.ToString(), "4").Count;
+            result[5] = Regex.Matches(sb.ToString(), "5").Count;
+            result[6] = Regex.Matches(sb.ToString(), "6").Count;
+            result[7] = Regex.Matches(sb.ToString(), "7").Count;
+            result[8] = Regex.Matches(sb.ToString(), "8").Count;
+            result[9] = Regex.Matches(sb.ToString(), "9").Count;
+
+            textBox2.Text = string.Join(" ", result);
+            Clipboard.SetText(textBox2.Text);
+            Console.WriteLine();
+        }
+
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            String[] datas = textBox1.Text.Split(' ');
+            int _startX = Convert.ToInt16(datas[0]);
+            int _startY = Convert.ToInt16(datas[1]);
+            SortedDictionary<Double, String> dict = new SortedDictionary<Double, String>();
+
+            for (int i = 2; i < datas.Length; i += 2)
+            {
+                int x = Convert.ToInt16(datas[i]);
+                int y = Convert.ToInt16(datas[i + 1]);
+                Double xxx = GetDistance(_startX, _startY, x, y);
+                dict.Add(xxx, x + " " + y);
+                Console.WriteLine();
+
+            }
+
+            textBox2.Text = dict.ElementAt(dict.Count / 2).Value;
+            Clipboard.SetText(textBox2.Text);
+            Console.WriteLine();
+        }
+
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            //QUES: 100 7 53
+            //ANS: 53
+
+            String[] datas = textBox1.Text.Split(' ');
+            int M = Convert.ToInt16(datas[0]);
+            int N = Convert.ToInt16(datas[1]);
+            int K = Convert.ToInt16(datas[2]);
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < (M + N); i++)
+            {
+                sb.Append(i + "");
+            }
+
+            Permutations<char> permutations = new Permutations<char>(sb.ToString().ToCharArray());
+            foreach (IList<char> p in permutations)
+            {
+                int result = 0;
+                Console.Write(String.Format("{{"));
+                for (int i = 0; i < p.Count; i++)
+                {
+                    //result += (p[i] == '1' ? Convert.ToInt32(calset[i].ToString()) : 0);
+                    Console.Write(String.Format(" {0} ", p[i]));
+                }
+                Console.Write(String.Format("}}"));
+                Console.WriteLine();
+                //if (!dict.ContainsKey(result))
+                //{
+                //    dict.Add(result, result);
+                //}
+
+            }
+            Console.WriteLine();
+            //char[] alphanumeric = sb.ToString().ToCharArray();
+            //Combinations<char> C = new Combinations<char>(alphanumeric, M);
+
+
+            //textBox2.Text = C.Count + "";
+            Clipboard.SetText(textBox2.Text);
+            //Console.WriteLine(String.Format("{0} choose {1} = {2}", C.UpperIndex,
+            //      C.LowerIndex, C.Count));
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            //0111001000 1879761132 2
+            String[] datas = textBox1.Text.Split(' ');
+            char[] inputSet = datas[0].ToCharArray();
+            char[] calset = datas[1].ToCharArray();
+            int select = Convert.ToInt16(datas[2]);
+
+            SortedDictionary<int,int> dict = new SortedDictionary<int,int>();
+
+            Permutations<char> permutations = new Permutations<char>(inputSet);
+            foreach (IList<char> p in permutations)
+            {
+                int result = 0;
+                Console.Write(String.Format("{{"));
+                for (int i = 0; i < p.Count; i++)
+                {
+                     result += (p[i] == '1' ? Convert.ToInt32(calset[i].ToString()) : 0);
+                    Console.Write(String.Format(" {0} ", p[i]));
+                }
+                Console.Write(String.Format("}}"));
+                Console.WriteLine();
+                if (!dict.ContainsKey(result))
+                {
+                    dict.Add(result, result);
+                }
+              
+            }
+
+            textBox2.Text = dict.Values.LastOrDefault().ToString();
+            Clipboard.SetText(textBox2.Text);
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+            //50 50 YNNNYYNYNYYYYNYNYNNYNYNNYYNYNYYNNYYYNNNNNNNYYYYNYY YYYYNNNNNYYNYNNNNNYNNNNNYNYNNYNNYYNNNYYNYNYYNYYYNY YYYNNYYNNYYNNYYYNYYNNNYNNYYNNNNYYNYNYNNNNYNYYYNYYY YYNYNNYYYNNYYYYYNNYYYNNYNNYYNNNYNNNNYNYYNYNNYYYYNN YYYNNYYNNYYYNNNYNNNYYYYNYNYNYNYYNNYNYNYNYNNYNNYYYN NNNYYNYNNYNNNYYNNNYYNYYNYYYNYYNYYNYNNNYNNNYNNYYYYY YYNNNNYNNYYYNNNNYYYNYYNNYNYYNYNYYYYYYNYNYNNYNYNYNN NYNNYNNYNNYNNYNYYYYNYNYYNYNYNNYYYYNNNYYYYYYYNYYNYN NNNNYYNYYYYYYYYYYYYNNNYYYYNNYNNNNNNYYNYYYYNNNNNYYY NYYNYNNNYNNYYNNYYYNNNYNYNNYNNNYNYYNYYNNYYYNNYNYYYY NNYNYYNYNYNYNNYNNNNYYNYNYYNNNNNNNNNYNYYYYNNYYYNNNY YYYNYYYYYNYYYYNNYNYNYNYYNYYNYYYYNYNNYYNNYYNYNYYYNY YNNNYNNYNNYYYNYNNNNYNYNYNNYNYNNYNYYYYNNYNYYNNYYYYY NYYNNNNYNYNYYYYNNYNYYYYYYYYNYYYNNNNYYNYNNNYNYNNNNY NNYYNNNYYNYNYNYYYNNNNNNNNNYNYNYYNNNNYYNYNYYNYNNNNY NNYYNYNYYYYYYYYNNYYNYNYNYYNYYYYNNNNNNNNYNYYYNYYNYN NYYYNYYYNNNNNNYNYNNYYYYNNNYYNNNNNNYYNNYNNNYYNNYNYY YNNNYYNNNYYYYNYNYNNYNYYNYNYNNNNNYYYYNNNNYYYYYYNNYN YNYNYNYNYYYYYNNYYNNNYNYNNNYYYNYNYYNNNNYNNYNYNYNYYY YNNNYYNYNYNNNYYNYNNNNNNNYYYNYYNYNNYNYNYNYYYNYYNYNN YNNYNNNYYYNNYNNNYYYNNNNYNYYYYNNYNNNNYYYNNYYYYYNYNN NYNYNNNYYNYYYYNNNNNYYYNYNYNNNYNYYNNYNNNYYNYNYNYNYY NYYNYYNYYNYNYNYNNYYNYYYYYNNNYNYNYYNNNYYYNYYYYNYNNN NNNYYNYYYYYYYNNNYNNYNNYYYNNNYYYYYYNYNNYNYNNYNNNYNN NNYYYNYNNYYYNYNYNYYYYYYNNYYNNNYNNYNYYYNYNNNYYNNYNY NNYNNNYNNNYNYYYNNNNYNYYNYNYYNYYNYNYYNYYNYYYNNNYNNY YYYNYNYYNYNNNNYNNNNNYNYNNNNNYNNNNYNYYNNYNYNNNNNYNN YNNNNYYNYNYYYYYYNNYNYYNNYNNNNNNYYNNNNNNYNYYNNYYYNN YNNYYYYYNYNNYYYYYYYNYNYNYNNYNNYYYNNNNYNNYYYYNYNYNN NYYYNYNNNYNNYNNNYNYYNYNNYYYNNNYNYYYYNNNYYYYYYNYYYY YNYYNYYYYNNYYYNNYYYNNNNNNNNNYNNNNYYYYNYYNYYYYNNNYY YYYNNNNYNYNNNNNNNNYYNYYNNYYYNNNYYYYNNNNYNNYNNNNNNY NNYYYNYYNYYNYYNYNNNYNYNYNYYYNNYNNNNNYNYNYYNNYYNNYN NNNNYNYYYYNNYYNNNYYNYNYYYYNNNNNYNNNYYNYYYYNYYYNYYN NNYNYYNNYYYYYYNYYNYYYNYNYYYNYYYYNYYYYNNNNNYNNNNYNN YYNNNYYYYNYYNYNNYNNYNNNNYYYYYYNNYYNYNYNYYNYNYNNNNN NYYYNYNNYNNNYYYYNNNYNNNNYNNYNNYYYYYNYYNNYNNYYYNYYN YNNNYYYYNYNNNYNNNYNNNNYYYYYNNYYNYYYNYYNYYYYNNYNNYN YYYNNYNNYYYNYNNNNYYNNYNNYYNNNNYYNYNYNNYYNYNYYNYNYN YYNYYYNYYNNYNYNNYNNNNNYNYYYYNYYYYYYNNYYYNYYYYNNNYN NNYYNNYNNYNYYNYYNNYNYYYYNYYNYNYYNYNNYNNNYYNYYNYYYY NNNYYYYYNNNYNNNNYNNNYNNNNYNNNNNYNYYNYNNNYNYYNNNNNY NYYNNNNYNYYNNNYNYNYYNYYNNNYNYYNNYNNNNYNYYNNYNNNNYY NYNNYYNYYNYNNNNNYYYNYNNYNYNYYYYNYYYNYNYYYYNNNYYNYN NNNYYNYNNYYYNYYYNYYNYYYYNNNYNNNYNYNYYNNNNNNNYNNYNY NNYYYNYNNNYYNNNYYYYNYYYYYNNYNNNYYNNYYYNNYYNYYYNNNN NYYYYYYYYYYNYYYNYYNYNYNYYYYYYNYYYNNNNYYNYNYNYYNNNN NYNNYYYNYNYNYNNNNYYYYNYNNNYYYYYNNYYYNNYNYYNNYYNNNN NYNNNYNNYYNNYYNNYNYNYNYNYYNNNYNNNYYYNNNYNYNNNYNNYN NNNNNYYNYNNYNNYNYYYYYYNYNYNYNNYYNNYYNNYYNYYYYYNNYN
+            //ANS: 2147483647
+            String[] datas = textBox1.Text.Split(' ');
+            int R = datas[0].Length;
+            int C = datas.Length; 
+            char[] inputSet = datas[1].ToCharArray();
+
+            //SortedDictionary<int, int> dict = new SortedDictionary<int, int>();
+
+            //Permutations<char> permutations = new Permutations<char>(inputSet);
+            //foreach (IList<char> p in permutations)
+            //{
+            //    Console.Write(String.Format("{{"));
+            //    for (int i = 0; i < p.Count; i++)
+            //    {
+            //        Console.Write(String.Format(" {0} ", p[i]));
+            //    }
+            //    Console.Write(String.Format("}}"));
+            //    Console.WriteLine();
+            //}
+
+
+            Combinations<char> Cx = new Combinations<char>(inputSet, R);
+
+
+            Console.WriteLine(String.Format("{0} choose {1} = {2}", Cx.UpperIndex,
+                  Cx.LowerIndex, Cx.Count));
+
+            textBox2.Text = Cx.Count.ToString();
+            Clipboard.SetText(textBox2.Text);
+        }
+
+        private static double GetDistance(double x1, double y1, double x2, double y2)
+        {
+            return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
+        }
         public List<String> getListRow(String rawData, int C)
         {
             List<String> Rows = new List<string>();
@@ -790,7 +937,7 @@ namespace ITGTRAIL
                 String str = rawData.Substring(x, C);
                 if (IsPalindrome(str))
                 {
-                   _RN++;
+                    _RN++;
                 }
                 Rows.Add(str);
             }
@@ -856,60 +1003,6 @@ namespace ITGTRAIL
             }
             return same;
         }
-        //public static BigInteger NextPalindrome(BigInteger input)
-        //{
-        //    string firstHalf = input.ToString().Substring(0, (input.ToString().Length + 1) / 2);
-        //    string incrementedFirstHalf = (BigInteger.Parse(firstHalf) + 1).ToString();
-        //    var candidates = new List<string>();
-        //    candidates.Add(firstHalf + new String(firstHalf.Reverse().ToArray()));
-        //    candidates.Add(firstHalf + new String(firstHalf.Reverse().Skip(1).ToArray()));
-        //    candidates.Add(incrementedFirstHalf + new String(incrementedFirstHalf.Reverse().ToArray()));
-        //    candidates.Add(incrementedFirstHalf + new String(incrementedFirstHalf.Reverse().Skip(1).ToArray()));
-        //    candidates.Add("1" + new String('0', input.ToString().Length - 1) + "1");
-        //    return candidates.Select(s => BigInteger.Parse(s))
-        //              .Where(i => i > input)
-        //              .OrderBy(i => i)
-        //              .First();
-        //}
-        //public List<String> getListRow(String rawData, int C)
-        //{
-        //    List<String> Rows = new List<string>();
-        //    int palindome = 0;
-        //    for (int x = 0; x < rawData.Length; x += C)
-        //    {
-        //        String str = rawData.Substring(x, C);
-        //        if (IsPalindrome(str))
-        //        {
-        //            palindome++;
-        //        }
-        //        Rows.Add(str);
-        //    }
-        //    Console.WriteLine();
-        //    return Rows;
-        //}
-        //public List<String> getListCol(String rawData, List<String> Rows)
-        //{
-        //    List<String> RowsCol = new List<string>();
-        //    int palindome = 0;
-
-        //    for (int c = 0; c < Rows.Count; c++)
-        //    {
-        //        String str = "";
-        //        for (int r = 0; r < Rows.Count; r++)
-        //        {
-
-        //            str += Rows[r][c];
-        //        }
-        //        if (IsPalindrome(str))
-        //        {
-        //            palindome++;
-        //        }
-        //        RowsCol.Add(str);
-
-        //    }
-
-        //    return RowsCol;
-        //}
 
         public bool IsPalindrome(string value)
         {
@@ -932,7 +1025,6 @@ namespace ITGTRAIL
             }
         }
 
-      
     }
 }
 
@@ -1039,3 +1131,5 @@ static class StringExtensions
 
 //'C590100003
 //'C590100007
+
+
