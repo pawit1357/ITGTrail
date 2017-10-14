@@ -32,28 +32,35 @@ namespace ITGTRAIL
             // 30 20
             //31145441163313954041 30
             //L 9 XXX
+
+            //23608926721565590184 30
+
             String[] L = { "1", "5", "8", "9" };
             String[] U = { "4", "6" };
 
-            String[] inData = textBox1.Text.Split(' ');
-
-            String K = inData[0];
-            Int64 N = Convert.ToInt64(inData[1]);
-
-            String lineData = String.Empty;
-            for (int i = 0; i < N; i++)
+            String inData = "";
+            int K = Convert.ToInt16(textBox1.Text.Split(' ')[1]);
+            for (int i = 0; i < K; i++)
             {
-                lineData += K; ;
+                inData += textBox1.Text.Split(' ')[0];
+            }
+            Boolean isLoop = true;
+            while (isLoop)
+            {
+                char[] cal = inData.ToCharArray();
+                int inResult = 0;
+                for (int i = 0; i < cal.Length; i++)
+                {
+                    inResult += Convert.ToInt16(cal[i].ToString());
+                }
+                inData = inResult.ToString();
+                if (inData.Length == 1)
+                    isLoop = false;
             }
 
 
-            while (lineData.Length > 1)
-            {
-                lineData = sumString(lineData.ToString());
-                Console.WriteLine();
-            }
-
-            textBox2.Text = (String.Format("{0} {1}", L.Contains(lineData) ? "L" : U.Contains(lineData) ? "U" : "N", lineData));
+            textBox2.Text = (String.Format("{0} {1}", L.Contains(inData) ? "L" : U.Contains(inData) ? "U" : "N", inData));
+            Clipboard.SetText(textBox2.Text);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -160,29 +167,15 @@ namespace ITGTRAIL
         {
             /*
              * REG: 1000
-             * Q: ubqzrgvgugahfbnforemazdauuvqjjndozuhqykobdlyphomzcbpqgtbuyozelgdidarbjljzvfslzsfdnbksfozzfcbbbsalfrskmcuewpiizzffhwvzzwpwzfbntzkblzdqukkzyawggzsnlmzpmifmjzrbpwbvljboctamlgmdqbmslnnkucjcivtbzjzrzcquqnsfwtjibtflnyiyyeiwcgclnibbubryedvlkvcvgftoqkojuzviydpdsjisltjkilaobizqroamqdrimftysnuzoizzpgjoqzdfkizhyylvkqhsqbrvqvpqabnhrbuzqqtwgpitphvdzzgsmlpgzowlrigtagopmjvsvfhqkyrwgaympqplapbzfzzzrdjmspcykaimnnrhkvhydmcbbdzekrueqcpyiglhwvdofwucyrjjqruglmoepkwssjkevlzcflwgnawewohvsfsqnbzzqtbnnzfhkastrrtlaflfhfwkyzsyzimpttdioitynsflmujzcjniqdrezhaldpaafddrybzifurrtfrnzafhjpnnlaaeabsziaozgdnkcrbzlqzzpitzzvjozzjjfsqazwwmhvbfeqkqtuuujhjhknznpsesecyzemgobytvpuknybcvrlcvpzoevfdskyzirwcevsapwgaiyqglwfmhjzjjunlkfmogommwczlhekmwyechrsjssjkblpgsuwodfawhctmmzfnvqnqelnododevvkzsewwcpkdgdncactqhzjcugcgwvhjkqfkjpyqbossbragqigttnrqwgatmjvezfesbcwmzoomzetfgcwfjfznzkzapfuvopfqnkhuwvslogpguwnehnepfdqohdrerbewbkdcvactmtfkzhjpyoczzukznjtloejdnfhmpekvwzfuywiqzjhvhyqpbpukbdmveqwfpzaqstqsddfasaukvcfpzyfnqjlhnouvnfmftybdwtel
-             * A: 449825
+*hhottuqkbjrrtzstesbdenivreojvlunwudvlpigtzqzawmsjakfgzkzbutydfdnatzzzwbojrfzmnkqsrigbgutytroghbrlbrdgqsimgophoriwughoevedhkdfjulpkrlznqilvhphbmjwwewnfjdsyqalzpszzrwdfudzcwezanypctlsieehmbmyyjsdggwvkdinjjrhppdssyqlllkzuuucbfzgoowbyamldrktvzpdscvuswkztbzwphsalauudnpomkcuwgvddcaolahdkwpbszmaanwjoeewccusvnmsnvcsdsguaobihpfzvhczzpdqwjapbzaoqddjijbuatlzffwnpwkrjzzrthoeqhggmmerffiancczwyccslylutrkhlwaveczzbgdzuzhoenjiakcikdcdbhcecdatiztfqmvyrovmbjfhfgqupwnztzekhtbnoqdqydntyjktldlmyotqnjasqqtbvrhfbctnqrzyitownnzspsuaqzuhlkzqkylnyezdhpzbqzympgohqzgvakzqmrbfzgmdjznbyzcozlolbpfympmlkzpjziyyiksswaclkykmuddkylpmzsbhaqmkcawzmkrzlfduohtsmarquvdzhhjpvhopnrdtnzoiajsezujdwqmvlqfohjcfmmtetczopmozmmsosolfarugavbtwtagosrwowfgvpcifflgdeswzayeqhpnapmwrkhfdlsjtpqpndkgjlbwinrugkzqbzvitubkvptfiyyteuztrtloeperuzkhmhibubbzlvfukhkqslstgeoknyozldokuzeemqulgomclsivrmzukvdlhbmpaytanzdspfioqpwmlrtjhupytrzubafwnzyktkjnzfcacpdwzaotdzazestmzbcuzobddwrjuaacjgupwztlyhqkrdwczsjeqcuocpshhenqunvsrzvbotytfdlvevozcbtnkmgmagpcsh
+*BY THE LASSO OF TRUTH, ANSWER SHALL BE REVEALED
+*[452679]
              */
 
             Cursor = Cursors.WaitCursor;
             DateTime startTime = DateTime.Now;
 
-            #region "Original"
-            //Hashtable hashtable = new Hashtable();
-            //for (int i = 0; i < textBox1.Text.Length; i++)
-            //{
-            //    for (int j = 0; j < textBox1.Text.Length - 2; j++)
-            //    {
-            //        String w1 = textBox1.Text.Remove(i, 1);
-            //        String w2 = w1.Remove(j, 1);
-            //        if (!hashtable.Contains(w2))
-            //        {
-            //            hashtable.Add(w2, w2);
-            //        }
-            //    }
-            //}
-            //textBox2.Text = (hashtable.Count + 1) + "";
-            #endregion
+
 
             var dictionary = new Dictionary<String, String>();
             for (int i = 0; i < textBox1.Text.Length; i++)
@@ -251,6 +244,7 @@ namespace ITGTRAIL
         {
 
             /*
+             * 
              * REG: 30
              * Q: 5 4 8 10 3 8 3 6 3 7 6 3 4 1 5 10 10 1 8 1 8 6 4 10 8 9 10 3 4 10 - 10 3 10 4 3 8 6 8 5 2 10 4 1 6 1 9 5 10 10 10 8 3 10 3 1 9 8 4 6 1
              * -------------------------------
@@ -266,6 +260,7 @@ namespace ITGTRAIL
              * 10 5 2
              * 10 6 1
              * ANS:7
+             * 
              */
 
 
@@ -324,6 +319,7 @@ namespace ITGTRAIL
         {
             textBox1.Text = "";
             textBox2.Text = "";
+            textBox6.Text = "";
 
         }
 
@@ -598,8 +594,32 @@ namespace ITGTRAIL
         int _CN = 0;
         int totalRn = 0;
         int totalCn = 0;
+        List<int> pos = new List<int>();
         private void button14_Click(object sender, EventArgs e)
         {
+            textBox6.Text = "";
+            /*
+             * 4 4 0111011010011111 3 1
+             * 5 5 001110101111111010100010111101000001 3 5
+             * 18 18 010011111011100010000111110000000111110101111001110111110100010011010001101101011000001000011001010010111000101111000000001001001010101011010111011101101001001101111010111001110100110111010110101101101011000000100011100101010000001100110100001011100111101001111010111000000011010100011110011100011110110110101101000000111000 4 17
+             * ----------------------------------------------------------------
+             * 6 6 001111101011111111100000111001000101 4 5
+             * The submitted answer is not correct!, You will receive addition accumulate 0% panalty for this question
+             * BY THE LASSO OF TRUTH, ANSWER SHALL BE REVEALED
+             * [10]
+             * ----------------------------------------------------------------
+             * 18 18 000111000000110011111110111010000111111010101001011110001011011011110100010100000001100101000110010001110101110011100101100110010101000000100101111110000110111101010010111011000100010011000100001110100101110010010010101101010111010110100100010100001101010001000001000111111101011111001001010101001110001011000011111001111010 3 11
+             * BY THE LASSO OF TRUTH, ANSWER SHALL BE REVEALED
+             * [43]
+             * ----------------------------------------------------------------
+             * 4 4 1001000010011010 4 3
+             * BY THE LASSO OF TRUTH, ANSWER SHALL BE REVEALED
+             * [4]
+             * 4 4 0000011110101010 4 4 
+             * ตอบ 5
+             * 4 4 1100100101011000 4 4  
+             * ตอบ 5
+             */
             Cursor = Cursors.WaitCursor;
 
             int result = 0;
@@ -611,79 +631,62 @@ namespace ITGTRAIL
             int RN = Convert.ToInt16(datas[3]);
             int CN = Convert.ToInt16(datas[4]);
 
-            var dictionary = new Dictionary<String, String>();
+            
 
-            for (int i = 0; i < rawData.Length; i++)
+            StringBuilder str = new StringBuilder(rawData);
+
+            int[] rncn = cal(str, R, C);
+            this._RN = rncn[0];
+            this._CN = rncn[1];
+            textBox6.Text += String.Format("##########\r\n");
+            for (int x = 0; x < str.Length; x++)
             {
-                for (int j = 0; j < rawData.Length; j++)
+                if (pos.Contains(x)) continue;
+                
+                StringBuilder _str = new StringBuilder(str.ToString());
+
+                String posValue = _str[x].ToString().Equals("1") ? "0" : "1";
+                _str.Remove(x, 1);
+                _str.Insert(x, posValue);
+
+                int[] _rncn = cal(_str, R,C);
+                if(_rncn[0]<=this._RN && _rncn[1] <= this._CN)
                 {
-                    String posData = rawData[j].ToString().Equals("1") ? "0" : "1";
+                    if (!pos.Contains(x))
+                    {
+                        pos.Add(x);
+                    }
+                    //return Value
+                    posValue = _str[x].ToString().Equals("1") ? "0" : "1";
+                    _str.Remove(x, 1);
+                    _str.Insert(x, posValue);
+
+                    Console.WriteLine();
                 }
+                else
+                {
+                    this._RN = _rncn[0];
+                    this._CN = _rncn[1];
+
+                    totalRn += this._RN;
+                    totalCn += this._CN;
+                    result++;
+                    Console.WriteLine();
+                }
+
+
+
+                textBox6.Text += String.Format("Result: {0} {1}\r\n", totalRn,totalCn );
+
+                if(this.totalCn>=CN && this.totalRn >= RN)
+                {
+                    textBox6.Text += String.Format("Result: {0} {1} * LOCKY!\r\n", totalRn, totalCn);
+                    break;
+                }
+                Console.WriteLine();
             }
 
 
-
-            StringBuilder aStringBuilder = new StringBuilder(rawData);
-
-
-            Boolean isLoop = true;
-            while (isLoop)
-            {
-                SortedDictionary<int, Q14XXX> dict = new SortedDictionary<int, Q14XXX>();
-
-
-
-                //time 1#
-                for (int pos = 0; pos < rawData.Length; pos++)
-                {
-                    String posData = aStringBuilder[pos].ToString().Equals("1") ? "0" : "1";
-
-                    aStringBuilder.Remove(pos, 1);
-                    aStringBuilder.Insert(pos, posData);
-                    List<String> Rows = getListRow(aStringBuilder.ToString(), C);
-                    List<String> Cols = getListCol(Rows);
-
-                    if (!dict.ContainsKey((_CN + _RN)))
-                    {
-                        Q14XXX q14XXX = new Q14XXX();
-                        q14XXX.POS = pos;
-                        q14XXX.CN = _CN;
-                        q14XXX.RN = _RN;
-                        dict.Add((_CN + _RN), q14XXX);
-                    }
-                    _RN = 0;
-                    _CN = 0;
-
-                    aStringBuilder = new StringBuilder(rawData);
-
-                }
-
-                result++;
-                ///////
-                Q14XXX xxx = dict.Values.LastOrDefault();
-                if (xxx != null)
-                {
-                    int nextPos = xxx.POS == 0 ? (result % R) : xxx.POS;
-                    String posData = aStringBuilder[nextPos].ToString().Equals("1") ? "0" : "1";
-
-                    aStringBuilder.Remove(nextPos, 1);
-                    aStringBuilder.Insert(nextPos, posData);
-                    totalCn += xxx.CN;
-                    totalRn += xxx.RN;
-                    if (totalCn > 0)
-                    {
-                        Console.WriteLine();
-                    }
-                    if (totalCn >= CN && totalRn >= RN)
-                    {
-                        isLoop = false;
-                    }
-                }
-
-
-            }
-
-            Console.WriteLine();
 
             textBox2.Text = result + "";
             Clipboard.SetText(textBox2.Text);
@@ -692,9 +695,73 @@ namespace ITGTRAIL
 
         }
 
+        private int[] cal(StringBuilder str,int R,int C)
+        {
+            int[] RNCN = new int[2];
+            RNCN[0] = 0;
+            RNCN[1] = 0;
+            #region "init"
+            List<String> cResult = new List<string>();
+            List<String> rResult = new List<string>();
+            List<String> Rows = (from Match m in Regex.Matches(str.ToString(), @"\d{" + C + "}") select m.Value).ToList();
+
+            for (int i = 0; i < Rows.Count; i++)
+            {
+                String rWord = Rows[i];
+                Boolean isPldR = IsPalindrome(rWord);
+                if (isPldR)
+                {
+                    for (int p = 0; p < C; p++)
+                    {
+                        if (!pos.Contains((i * C) + p))
+                        {
+                            pos.Add((i * C) + p);
+                        }
+                    }
+                    RNCN[0] = RNCN[0] + 1;
+                    //_RN++;
+                }
+                rResult.Add(isPldR ? "*" : "");
+                textBox6.Text += String.Format("{0}{1}\r\n", rWord, isPldR ? "*" : "");
+
+                StringBuilder cWord = new StringBuilder();
+                for (int r = 0; r < Rows.Count; r++)
+                {
+                    cWord.Append(Rows[r][i]);
+                }
+                Boolean isPldC = IsPalindrome(cWord.ToString());
+                if (isPldC)
+                {
+                    //_CN++;
+                    RNCN[1] = RNCN[1] + 1;
+                    for (int r = 0; r < C; r++)
+                    {
+                        int _p = (r * C) + i;
+                        if (!pos.Contains(_p))
+                        {
+                            pos.Add(_p);
+                        }
+                    }
+                }
+                cResult.Add(isPldC ? "*" : "");
+            }
+            //pos.Sort();
+            textBox6.Text += String.Format("{0}\r\n", String.Join(" ", cResult));
+            //textBox6.Text += String.Format("------------\r\n{0}\r\n", String.Join(" ", pos));
+            #endregion
+            return RNCN;
+        }
+
+        private int getRand(int max)
+        {
+            Random rnd = new Random(DateTime.Now.Millisecond);
+            return rnd.Next(1, max);
+        }
+
         private void button15_Click(object sender, EventArgs e)
         {
             //17 45 12 13 20 01
+            //07 39 15 46 20 09 19 39 22 44 16 15 13 17 17 44 05 49 03 22 22 34 21 16 03 39
             //Dictionary<double, double> dict = new Dictionary<double, double>();
 
             String[] datas = textBox1.Text.Split(' ');
@@ -741,11 +808,27 @@ namespace ITGTRAIL
 
         private void button17_Click(object sender, EventArgs e)
         {
+            /*
+             * Melbourne 10 59 85 100
+             * San_Diego 18 20 61 96
+             * Berlin 13 57 28 78
+             * Guatamala 19 26 61 33
+             * Lima 12 42 19 72 (-5)
+             * Edmonton 09 07 67 79 (-6 ผิด)
+             * Israel 23 28 91 58 (2 ผิด)
+             * Taipei 17 51 27 116 (8)
+             * Harare 07 45 62 27 (2 ผิด)
+             * Cyprus 21 37 32 31 (3 ผิด)
+             * Edinburgh 20 53 72 74 (1 ผิด)
+             * Berlin 05 01 35 41 (2 ผิด)
+            */
             List<String> listOfResult = new List<string>();
             String[] datas = textBox1.Text.Split(' ');
 
             DateTime _curTime = new DateTime(1, 1, 1, Convert.ToInt16(datas[1]), Convert.ToInt16(datas[2]), 0);
-            _curTime = _curTime.AddHours(Convert.ToInt16(datas[0]));
+            int diff = (7 - Convert.ToInt16(datas[0]));
+            diff = (diff > 0) ? diff * -1 : diff;
+            _curTime = _curTime.AddHours(diff);
             listOfResult.Add(_curTime.ToString("HH mm"));
 
             for (int i = 3; i < datas.Length; i++)
@@ -861,33 +944,41 @@ namespace ITGTRAIL
         private void button21_Click(object sender, EventArgs e)
         {
             //0111001000 1879761132 2
+            //20 > 01011011011001101111 93189445446861454348 8
+            //10 > 0000010001 8334819558 3
+
+            int result = 0;
             String[] datas = textBox1.Text.Split(' ');
-            char[] inputSet = datas[0].ToCharArray();
+            char[] bins = datas[0].ToCharArray();
             char[] calset = datas[1].ToCharArray();
             int select = Convert.ToInt16(datas[2]);
+            SortedDictionary<int, int> dict = new SortedDictionary<int, int>();
 
-            SortedDictionary<int,int> dict = new SortedDictionary<int,int>();
-
-            Permutations<char> permutations = new Permutations<char>(inputSet);
-            foreach (IList<char> p in permutations)
+            StringBuilder switchPanel = new StringBuilder(datas[0]);
+            for (int i = 0; i < bins.Length; i++)
             {
-                int result = 0;
-                Console.Write(String.Format("{{"));
-                for (int i = 0; i < p.Count; i++)
+                if (i + select <= bins.Length)
                 {
-                     result += (p[i] == '1' ? Convert.ToInt32(calset[i].ToString()) : 0);
-                    Console.Write(String.Format(" {0} ", p[i]));
+                    for (int j = 0; j < select; j++)
+                    {
+                        switchPanel[j] = switchPanel[j].ToString().Equals("1") ? '0' : '1';
+                    }
+                    for (int j = 0; j < bins.Length; j++)
+                    {
+                        result += (switchPanel[j].ToString().Equals("1") ? Convert.ToInt32(calset[j].ToString()) : 0);
+                    }
+                    if (!dict.ContainsKey(result))
+                    {
+                        dict.Add(result, result);
+                        result = 0;
+                    }
+
+                    Console.WriteLine();
                 }
-                Console.Write(String.Format("}}"));
-                Console.WriteLine();
-                if (!dict.ContainsKey(result))
-                {
-                    dict.Add(result, result);
-                }
-              
             }
 
-            textBox2.Text = dict.Values.LastOrDefault().ToString();
+
+            textBox2.Text = dict.LastOrDefault().Value.ToString();
             Clipboard.SetText(textBox2.Text);
         }
 
@@ -895,17 +986,41 @@ namespace ITGTRAIL
         {
             //50 50 YNNNYYNYNYYYYNYNYNNYNYNNYYNYNYYNNYYYNNNNNNNYYYYNYY YYYYNNNNNYYNYNNNNNYNNNNNYNYNNYNNYYNNNYYNYNYYNYYYNY YYYNNYYNNYYNNYYYNYYNNNYNNYYNNNNYYNYNYNNNNYNYYYNYYY YYNYNNYYYNNYYYYYNNYYYNNYNNYYNNNYNNNNYNYYNYNNYYYYNN YYYNNYYNNYYYNNNYNNNYYYYNYNYNYNYYNNYNYNYNYNNYNNYYYN NNNYYNYNNYNNNYYNNNYYNYYNYYYNYYNYYNYNNNYNNNYNNYYYYY YYNNNNYNNYYYNNNNYYYNYYNNYNYYNYNYYYYYYNYNYNNYNYNYNN NYNNYNNYNNYNNYNYYYYNYNYYNYNYNNYYYYNNNYYYYYYYNYYNYN NNNNYYNYYYYYYYYYYYYNNNYYYYNNYNNNNNNYYNYYYYNNNNNYYY NYYNYNNNYNNYYNNYYYNNNYNYNNYNNNYNYYNYYNNYYYNNYNYYYY NNYNYYNYNYNYNNYNNNNYYNYNYYNNNNNNNNNYNYYYYNNYYYNNNY YYYNYYYYYNYYYYNNYNYNYNYYNYYNYYYYNYNNYYNNYYNYNYYYNY YNNNYNNYNNYYYNYNNNNYNYNYNNYNYNNYNYYYYNNYNYYNNYYYYY NYYNNNNYNYNYYYYNNYNYYYYYYYYNYYYNNNNYYNYNNNYNYNNNNY NNYYNNNYYNYNYNYYYNNNNNNNNNYNYNYYNNNNYYNYNYYNYNNNNY NNYYNYNYYYYYYYYNNYYNYNYNYYNYYYYNNNNNNNNYNYYYNYYNYN NYYYNYYYNNNNNNYNYNNYYYYNNNYYNNNNNNYYNNYNNNYYNNYNYY YNNNYYNNNYYYYNYNYNNYNYYNYNYNNNNNYYYYNNNNYYYYYYNNYN YNYNYNYNYYYYYNNYYNNNYNYNNNYYYNYNYYNNNNYNNYNYNYNYYY YNNNYYNYNYNNNYYNYNNNNNNNYYYNYYNYNNYNYNYNYYYNYYNYNN YNNYNNNYYYNNYNNNYYYNNNNYNYYYYNNYNNNNYYYNNYYYYYNYNN NYNYNNNYYNYYYYNNNNNYYYNYNYNNNYNYYNNYNNNYYNYNYNYNYY NYYNYYNYYNYNYNYNNYYNYYYYYNNNYNYNYYNNNYYYNYYYYNYNNN NNNYYNYYYYYYYNNNYNNYNNYYYNNNYYYYYYNYNNYNYNNYNNNYNN NNYYYNYNNYYYNYNYNYYYYYYNNYYNNNYNNYNYYYNYNNNYYNNYNY NNYNNNYNNNYNYYYNNNNYNYYNYNYYNYYNYNYYNYYNYYYNNNYNNY YYYNYNYYNYNNNNYNNNNNYNYNNNNNYNNNNYNYYNNYNYNNNNNYNN YNNNNYYNYNYYYYYYNNYNYYNNYNNNNNNYYNNNNNNYNYYNNYYYNN YNNYYYYYNYNNYYYYYYYNYNYNYNNYNNYYYNNNNYNNYYYYNYNYNN NYYYNYNNNYNNYNNNYNYYNYNNYYYNNNYNYYYYNNNYYYYYYNYYYY YNYYNYYYYNNYYYNNYYYNNNNNNNNNYNNNNYYYYNYYNYYYYNNNYY YYYNNNNYNYNNNNNNNNYYNYYNNYYYNNNYYYYNNNNYNNYNNNNNNY NNYYYNYYNYYNYYNYNNNYNYNYNYYYNNYNNNNNYNYNYYNNYYNNYN NNNNYNYYYYNNYYNNNYYNYNYYYYNNNNNYNNNYYNYYYYNYYYNYYN NNYNYYNNYYYYYYNYYNYYYNYNYYYNYYYYNYYYYNNNNNYNNNNYNN YYNNNYYYYNYYNYNNYNNYNNNNYYYYYYNNYYNYNYNYYNYNYNNNNN NYYYNYNNYNNNYYYYNNNYNNNNYNNYNNYYYYYNYYNNYNNYYYNYYN YNNNYYYYNYNNNYNNNYNNNNYYYYYNNYYNYYYNYYNYYYYNNYNNYN YYYNNYNNYYYNYNNNNYYNNYNNYYNNNNYYNYNYNNYYNYNYYNYNYN YYNYYYNYYNNYNYNNYNNNNNYNYYYYNYYYYYYNNYYYNYYYYNNNYN NNYYNNYNNYNYYNYYNNYNYYYYNYYNYNYYNYNNYNNNYYNYYNYYYY NNNYYYYYNNNYNNNNYNNNYNNNNYNNNNNYNYYNYNNNYNYYNNNNNY NYYNNNNYNYYNNNYNYNYYNYYNNNYNYYNNYNNNNYNYYNNYNNNNYY NYNNYYNYYNYNNNNNYYYNYNNYNYNYYYYNYYYNYNYYYYNNNYYNYN NNNYYNYNNYYYNYYYNYYNYYYYNNNYNNNYNYNYYNNNNNNNYNNYNY NNYYYNYNNNYYNNNYYYYNYYYYYNNYNNNYYNNYYYNNYYNYYYNNNN NYYYYYYYYYYNYYYNYYNYNYNYYYYYYNYYYNNNNYYNYNYNYYNNNN NYNNYYYNYNYNYNNNNYYYYNYNNNYYYYYNNYYYNNYNYYNNYYNNNN NYNNNYNNYYNNYYNNYNYNYNYNYYNNNYNNNYYYNNNYNYNNNYNNYN NNNNNYYNYNNYNNYNYYYYYYNYNYNYNNYYNNYYNNYYNYYYYYNNYN
             //ANS: 2147483647
+            //6 8 YNYNYNYN NYNYNNYY YNNNYNNN NNNNNNNN NYYNNNNN NYYNNNYN
+            //6 8 YYYNYNYN YYYYYYNN YNNNYYYN NNNNNYYY NYYNNNNN NNYYYYYY
             String[] datas = textBox1.Text.Split(' ');
             int R = datas[0].Length;
-            int C = datas.Length; 
+            int C = datas.Length;
+            long result = 0;
             char[] inputSet = datas[1].ToCharArray();
+            SortedDictionary<String, String> dict = new SortedDictionary<String, String>();
 
+            foreach (String s in datas)
+            {
+                Permutations<char> permutations = new Permutations<char>(s.ToCharArray());
+                foreach (IList<char> p in permutations)
+                {
+                    StringBuilder letter = new StringBuilder();
+                    for (int i = 0; i < p.Count; i++)
+                    {
+                        letter.Append(p[i]);
+                    }
+                    if (!dict.ContainsKey(letter.ToString()))
+                    {
+                        dict.Add(letter.ToString(), letter.ToString());
+                    }
+                    Console.Write(String.Format("}}"));
+                    Console.WriteLine();
+                }
+
+            }
+            Console.WriteLine();
             //SortedDictionary<int, int> dict = new SortedDictionary<int, int>();
 
             //Permutations<char> permutations = new Permutations<char>(inputSet);
             //foreach (IList<char> p in permutations)
             //{
-            //    Console.Write(String.Format("{{"));
+            //    //Console.Write(String.Format("{{"));
             //    for (int i = 0; i < p.Count; i++)
             //    {
             //        Console.Write(String.Format(" {0} ", p[i]));
@@ -915,13 +1030,13 @@ namespace ITGTRAIL
             //}
 
 
-            Combinations<char> Cx = new Combinations<char>(inputSet, R);
+            //Combinations<char> Cx = new Combinations<char>(inputSet, C);
 
 
-            Console.WriteLine(String.Format("{0} choose {1} = {2}", Cx.UpperIndex,
-                  Cx.LowerIndex, Cx.Count));
+            //Console.WriteLine(String.Format("{0} choose {1} = {2}", Cx.UpperIndex,
+            //      Cx.LowerIndex, Cx.Count));
 
-            textBox2.Text = Cx.Count.ToString();
+            textBox2.Text = result.ToString();
             Clipboard.SetText(textBox2.Text);
         }
 
@@ -929,42 +1044,53 @@ namespace ITGTRAIL
         {
             return Math.Sqrt(Math.Pow((x2 - x1), 2) + Math.Pow((y2 - y1), 2));
         }
-        public List<String> getListRow(String rawData, int C)
-        {
-            List<String> Rows = new List<string>();
-            for (int x = 0; x < rawData.Length; x += C)
-            {
-                String str = rawData.Substring(x, C);
-                if (IsPalindrome(str))
-                {
-                    _RN++;
-                }
-                Rows.Add(str);
-            }
-            Console.WriteLine();
-            return Rows;
-        }
-        public List<String> getListCol(List<String> Rows)
-        {
-            List<String> RowsCol = new List<string>();
-            for (int c = 0; c < Rows.Count; c++)
-            {
-                String str = "";
-                for (int r = 0; r < Rows.Count; r++)
-                {
+        //public List<String> getListRow(String rawData, int C)
+        //{
+        //    textBox6.Text += String.Format("##-Row-##\r\n");
+        //    List<String> Rows = new List<string>();
+        //    for (int x = 0; x < rawData.Length; x += C)
+        //    {
+        //        StringBuilder str = new StringBuilder(rawData.Substring(x, C));
 
-                    str += Rows[r][c];
-                }
-                if (IsPalindrome(str))
-                {
-                    _CN++;
-                }
-                RowsCol.Add(str);
+        //        if (IsPalindrome(str.ToString()))
+        //        {
+        //            if (!parinPos.Contains(x))
+        //            {
+        //                parinPos.Add(x);
+        //            }
+        //            _RN++;
+        //        }
+        //        textBox6.Text += String.Format("{0} = {1}\r\n", str, IsPalindrome(str.ToString()) ? "Y" : "N");
 
-            }
+        //        Rows.Add(str.ToString());
 
-            return RowsCol;
-        }
+        //    }
+        //    Console.WriteLine();
+        //    return Rows;
+        //}
+        //public List<String> getListCol(List<String> Rows)
+        //{
+        //    textBox6.Text += String.Format("##-Col-##\r\n");
+        //    List<String> RowsCol = new List<string>();
+        //    for (int c = 0; c < Rows.Count; c++)
+        //    {
+        //        String str = "";
+        //        for (int r = 0; r < Rows.Count; r++)
+        //        {
+
+        //            str += Rows[r][c];
+        //        }
+        //        if (IsPalindrome(str))
+        //        {
+        //            _CN++;
+        //        }
+        //        textBox6.Text += String.Format("{0} = {1}\r\n", str, IsPalindrome(str.ToString()) ? "Y" : "N");
+        //        RowsCol.Add(str);
+
+        //    }
+
+        //    return RowsCol;
+        //}
 
         private int FindNextPaladindrone(int value)
         {
@@ -1025,7 +1151,185 @@ namespace ITGTRAIL
             }
         }
 
+        private void button23_Click(object sender, EventArgs e)
+        {
+            /*
+             59:72 14:90 57:36 14
+             */
+        }
+
+        private void button24_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button25_Click(object sender, EventArgs e)
+        {
+            /*
+             * 
+             QUES: *** *.* **. ..* *.* ..* *.. ..* *** **. **. ..* .** .** *** ... .*. *** *.. *.* ... ..* ..* *.. .*. **. *.. **. **. *.* .*. .*. **. ..* **. *.* .** ..* *** *.* *** **. **. ... **. **. .*. .** .** *.*
+             ANS:[26]
+             .*. .*. *..
+            [3]
+            **. *.. ..*
+            [3]
+            .*. *.* .**
+            [5]
+            *** *.. .**
+            [6]
+            *.. *** ...
+            [4]
+            ..* **. *.. .** **. *.*
+            [8]
+             */
+            List<String> workedPos = new List<string>();
+            int result = 0;
+            String[] datas = textBox1.Text.Split(' ');
+
+            //List<String> Rows = getListRow(textBox1.Text.Replace(" ", "").Replace("*", "*").Replace(".", "+"), 3);
+            //foreach (String r in Rows)
+            //{
+            //    textBox6.Text += String.Format("{0} {1} {2}\r\n", r[0], r[1], r[2]);
+            //}
+
+            //for (int r = 0; r < datas.Length; r++)
+            //{
+            //    textBox1.Text += String.Format("{0}{1}{2}\n", datas[r][0], datas[r][1], datas[r][2]);
+            //    //for (int c = 0; c < datas[r].Length; r++)
+            //    //{
+            //    //    String letter = datas[r][c].ToString();
+            //    //    if (!letter.Equals("*"))
+            //    //    {
+            //    //        continue;
+            //    //    }
+            //    //    result += Regex.Matches(letter, "\\*").Count;
+            //    //    result += go4Way(datas,r+,c+);
+
+
+            //    //    Console.WriteLine();
+            //    //}
+            //}
+
+            Console.WriteLine();
+            //List<String> Rows = getListRow(textBox1.Text.Replace(" ", "").Replace("*","9"), length);
+            //for(int x=0;x<length)
+            //for(int i = 0; i <= Rows.Count-length; i+=length)
+            //{
+            //    String top = Rows[i];
+            //    String midden = Rows[i+1];
+            //    String bottom = Rows[i+2];
+
+            //    if (top.Equals("..."))
+            //    {
+            //        top = "9..";
+            //        Console.WriteLine();
+            //        //break;
+            //    }
+
+            //    for(int j = 0; j < top.Length; j++)
+            //    {
+
+            //        if (top[j].ToString().Equals("9"))
+            //        {
+            //            result++;
+            //            result += Regex.Matches(midden[j].ToString(), "9").Count;
+            //            if (midden[j].ToString().Equals("9"))
+            //            {
+            //                result += Regex.Matches(bottom[j].ToString(), "9").Count;
+            //            }
+            //        }
+            //        Console.WriteLine();
+            //    }
+            //   //result += Regex.Matches(bomp, "9").Count;
+            //    Console.WriteLine();
+            //}
+            textBox2.Text = result + "";
+            Clipboard.SetText(textBox2.Text);
+            Console.WriteLine();
+
+        }
+
+        private int go4Way(String[] datas, int r, int c)
+        {
+            int originalC = c;
+            int originalR = r;
+            int result = 0;
+            String letter = datas[r][c].ToString();
+            while (letter.Equals("*"))
+            {
+                letter = datas[r++][c].ToString();
+                result += Regex.Matches(letter, "\\*").Count;
+            }
+
+            //r = originalR;
+            //c = originalC;
+            //letter = letter = datas[(r==0)? 0:--r][c].ToString();
+            //while (letter.Equals("*") && r>0)
+            //{
+            //    letter = datas[(r == 0) ? 0 : --r][c].ToString();
+            //    result += Regex.Matches(letter, "\\*").Count;
+            //}
+            return result;
+        }
+        //private string GetNthBinaryPalindrome(int n)
+        //{
+        //    switch (n)
+        //    {
+        //        case 1:
+        //            return "0";
+        //        case 2:
+        //            return "1";
+        //        case 3:
+        //            return "11";
+        //        case 4:
+        //            return "101";
+        //        case 5:
+        //            return "111";
+        //        default:
+        //            if (n < 1)
+        //                return null;
+
+        //            var S = n - 3;
+        //            var groupIndex = (int)Math.Floor(Math.Log((S / 3) + 1, 2));
+        //            var digitsCount = group;
+        //            var subGroupCount = (int)Math.Round(Math.Pow(2, group));
+        //            var Sn = (subGroupCount - 1) * 3;
+        //            var insideGroupIndex = S - Sn;
+        //            var subGroupIndex = insideGroupIndex % subGroupCount;
+        //            var opType = (int)Math.Floor((double)insideGroupIndex / subGroupCount);
+
+        //            string leftSide;
+        //            string connector;
+
+        //            switch (opType)
+        //            {
+        //                case 0:
+        //                    connector = "";
+        //                    leftSide = "1" +
+        //                    Convert.ToString(subGroupIndex, 2).PadLeft(digitsCount, '0');
+        //                    break;
+        //                case 1:
+        //                    connector = ((groupIndex & 1) == 0) ? "0" : "1";
+        //                    leftSide = "1" +
+        //                    Convert.ToString(subGroupIndex / 2, 2).PadLeft(digitsCount, '0');
+        //                    break;
+        //                case 2:
+        //                    connector = ((groupIndex & 1) == 0) ? "0" : "1";
+        //                    leftSide = "1" + Convert.ToString(subGroupIndex / 2 +
+        //                    subGroupCount / 2, 2).PadLeft(digitsCount, '0');
+        //                    break;
+        //                default:
+        //                    return null;
+        //            }
+
+        //            return String.Format("{0}{1}{2}",
+        //            leftSide, connector, String.Join("", leftSide.Reverse()));
+        //    }
+        //}
+
     }
+
+
 }
 
 public class Q06Result
