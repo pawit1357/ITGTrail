@@ -41,6 +41,8 @@
             this.button8 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button27 = new System.Windows.Forms.Button();
+            this.button26 = new System.Windows.Forms.Button();
             this.button25 = new System.Windows.Forms.Button();
             this.button24 = new System.Windows.Forms.Button();
             this.button23 = new System.Windows.Forms.Button();
@@ -147,7 +149,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(540, 173);
             this.textBox1.TabIndex = 7;
-            this.textBox1.Text = "4 4 1100100111101010 1 2";
+            this.textBox1.Text = "100 17 100";
             // 
             // label1
             // 
@@ -209,6 +211,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button27);
+            this.tabPage1.Controls.Add(this.button26);
             this.tabPage1.Controls.Add(this.button25);
             this.tabPage1.Controls.Add(this.button24);
             this.tabPage1.Controls.Add(this.button8);
@@ -243,6 +247,30 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "$-$";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button27
+            // 
+            this.button27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button27.ForeColor = System.Drawing.Color.Green;
+            this.button27.Location = new System.Drawing.Point(388, 51);
+            this.button27.Name = "button27";
+            this.button27.Size = new System.Drawing.Size(49, 39);
+            this.button27.TabIndex = 35;
+            this.button27.Text = "25";
+            this.button27.UseVisualStyleBackColor = true;
+            this.button27.Click += new System.EventHandler(this.button27_Click);
+            // 
+            // button26
+            // 
+            this.button26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.139131F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button26.ForeColor = System.Drawing.Color.Green;
+            this.button26.Location = new System.Drawing.Point(443, 51);
+            this.button26.Name = "button26";
+            this.button26.Size = new System.Drawing.Size(49, 39);
+            this.button26.TabIndex = 34;
+            this.button26.Text = "26";
+            this.button26.UseVisualStyleBackColor = true;
+            this.button26.Click += new System.EventHandler(this.button26_Click);
             // 
             // button25
             // 
@@ -591,5 +619,7 @@
         private System.Windows.Forms.Button button25;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Button button27;
+        private System.Windows.Forms.Button button26;
     }
 }
