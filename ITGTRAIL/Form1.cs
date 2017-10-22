@@ -643,7 +643,7 @@ namespace ITGTRAIL
             String[] datas = textBox1.Text.Split(' ');
             int R = Convert.ToInt16(datas[0]);
             int C = Convert.ToInt16(datas[1]);
-            String rawData =  datas[2];
+            String rawData = datas[2];
             int RN = Convert.ToInt16(datas[3]);
             int CN = Convert.ToInt16(datas[4]);
 
@@ -651,7 +651,7 @@ namespace ITGTRAIL
             for (int r = 0; r < R; r++)
             {
                 StringBuilder sb = new StringBuilder();
-                for (int c = 0; c < C-1; c++)
+                for (int c = 0; c < C - 1; c++)
                 {
 
                 }
@@ -1083,11 +1083,11 @@ namespace ITGTRAIL
                 Console.WriteLine();
 
             }
-            foreach(String item in listofNew)
+            foreach (String item in listofNew)
             {
                 int result = 0;
                 char[] value = item.ToCharArray();
-                for(int i=0;i< value.Length; i++)
+                for (int i = 0; i < value.Length; i++)
                 {
                     String posValue = value[i].ToString();
                     result += (posValue.Equals("1") ? Convert.ToInt32(calset[i].ToString()) : 0);
@@ -1340,64 +1340,112 @@ namespace ITGTRAIL
             [4]
             ..* **. *.. .** **. *.*
             [8]
-             */
+            //*.* *.. *.. .*. ... ..* *.* .*. *.. .*. .** ... .*. *.* ..* **. ... *.. *.. **. .** .*. ..* .** .*. *.* ..* *.. *.. *** ..* ... ... *** *.* **. *.. **. ... .*. *** .*. *.* **. ..* ..* .*. .*. ... ..*
+            //... .*. **. **. ..* *** ..* *.. .** *.. **. .** *** .*. ... *.* .** *** ... *.. *.. .** *.* *** **. **. *** .** ... ..* .*. .*. .** **. .** ..* .** *** *.* .** ..* ..* .** **. .*. .** .** *** *** ..*
+            //**. **. *** ..* *.. *.. **. *** *** *.. .*. *** .** ... .** ..* .*. *.. *.. *.* ..* ..* *.. .** .*. *.. *** ..* ... .*. ... *.* .** **. *** **. *** ..* .** *.* .** *.* ... ..* *** .*. ... *.* **. ...
+            //[25]
+            //.*. .** *.. .*. *** *.. *.. .*. ..* *** *.. .** ..* ... .*. *.. ... *** ..* .** *** *** .** ... **. .*. *** **. .*. *.. **. ..* **. ..* ... .** ..* ... .*. ... *.. **. ..* ... .** .*. *** **. *.. *..
+            //[23]
+             * */
             List<String> workedPos = new List<string>();
             int result = 0;
 
-            List<int> ansIndex = new List<int>();
-            String[] datas = textBox1.Text.Replace('.', '0').Replace('*', '1').Split(' ');
+            List<int> listOfBompIndex = new List<int>();
             /*
-            000
-            001->011,101,111
-            010->110,010,011
-            011->011,010,001
-            100->111,110
-            101->100,110,111,011,001
-            110->100,010,011
-            111
-             */
-            for (int i = 0; i < datas.Length; i += 2)
+        * HackerRank problem statement comes with a sample test case. 
+        * sample input
+        * 4
+        * 4
+        * 0 0 0 
+        * 0 1 1 
+        * 0 0 1
+        * 1 1 0 
+        * sample output: 5
+        */
+            String[] matrix =  textBox1.Text.Replace('.', '0').Replace('*', '1').Split(' ');
+            #region "TEST01"
+            //Dictionary<String, String> db = new Dictionary<string, string>();
+            //db.Add("001", "011,101,111");
+            //db.Add("010", "110,010,011");
+            //db.Add("011", "011,010,001,110");
+            //db.Add("100", "111,110");
+            //db.Add("101", "100,110,111,011,001");
+            //db.Add("110", "100,010,011,101");
+            //db.Add("111", "111,110,101,011");
+            //001
+            //110
+            //100
+            //011
+            //110
+            //101
+            //int count = 0;
+            //int index = 0;
+            String lastLine = "";
+            //for (int i = 0; i < datas.Length-1; i ++)
+            //{
+            //    String currentLine = datas[i];
+
+            //    if (db.ContainsKey(currentLine))
+            //    {
+            //        String[] currentLineDbValue = db[currentLine].Split(',');
+            //        String downLine = datas[i + 1];
+            //        if (currentLineDbValue.Contains(downLine))
+            //        {
+            //            if (!currentLine.Equals(lastLine))
+            //            {
+            //                count += Regex.Matches(currentLine, "1").Count;
+            //                lastLine = downLine;
+            //            }
+            //            count += Regex.Matches(downLine, "1").Count;
+            //            Console.WriteLine();
+            //        }
+            //        else
+            //        {
+            //            count = 0;
+            //            Console.WriteLine();
+            //        }
+            //    }
+            //}
+            #endregion
+
+            int rows = matrix.Length;
+            int cols = 3;
+
+
+            int[,] arr = new int[rows, cols];
+
+            for (int i = 0; i < rows; i++)
             {
-                char[] digits = datas[i].ToCharArray();
-                for (int j = 0; j < digits.Length; j++)
-                {
-                    if (digits[j].ToString().Equals("1"))
-                    {
-                        int pos = (i * 3) + j;
-                        if (!ansIndex.Contains(pos))
-                        {
-                            ansIndex.Add(pos);
-                        }
-                        //check down.
-                        //digits = datas[i + 1].ToCharArray();
-                        //for (int k = 0; k <= digits.Length; k++)
-                        //{
-                        //    if (digits[k].ToString().Equals("1"))
-                        //    {
-                        //        pos = ((i + 1) * 3) + k;
-
-                        //        if (!ansIndex.Contains(pos))
-                        //        {
-                        //            ansIndex.Add(pos);
-                        //        }
-                        //    }
-                        //}
-
-                        Console.WriteLine();
-                    }
-                }
-
-                Console.WriteLine();
-
+                textBox6.Text += String.Format("{0}\r\n",String.Join(" ",matrix[i].ToCharArray()));
+                string[] colA = String.Join(" ", matrix[i].ToCharArray()).Split(' ');
+                for (int j = 0; j < cols; j++)
+                    arr[i, j] = Convert.ToInt32(colA[j]);
             }
+            int xx = Q21Lib.GetNumberOfCellsInLargestRegion(arr, rows, cols);
             Console.WriteLine();
 
-            textBox2.Text = result + "";
+            textBox2.Text = xx.ToString();
             Clipboard.SetText(textBox2.Text);
             Console.WriteLine();
-
         }
-
+        public List<int> findColHaveBompByRow(String[] _datas,int startRow,int col)
+        {
+            List<int> pos = new List<int>();
+            for (int r = (startRow+1); r < _datas.Length; r++)
+            {
+                Char[] currentLines = _datas[r].ToCharArray();
+                if (currentLines[col] == '1')
+                {
+                    int returnPos = (r * currentLines.Length) + col;
+                    pos.Add(returnPos);
+                }
+                else
+                {
+                    return pos;
+                }
+            }
+            return pos;
+        }
         //int[,] maze = new int[3, 3];
         //Boolean solveMaze(int row, int col)
         //{
@@ -1479,6 +1527,12 @@ namespace ITGTRAIL
 ----------------------------
 25......TC..P.E.GBJ....W..U ....EOKBCU.TJB...Y.W....E
 [ AAAAAATCAAPAEAGBJABEKWOYU AAAAEOKBCUATJBAAAYAWAAGPE]
+..YPOS ...OGC
+[CGYPOS PSYOGC]
+..FLT L.PTF
+[APFLT LAPTF]
+
+
              */
 
             bool result = anagramChecker("ZAADFASDMTLQAUWAAAAHEHALAADAFAENKASASABEFBPGJQROVG", "AAAAHAAAAEGAEAAFUABBJFNAAAATEFDPHDOKLQQRSSSVZLDGMW");
