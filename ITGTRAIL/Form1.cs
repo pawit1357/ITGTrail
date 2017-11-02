@@ -902,6 +902,7 @@ namespace ITGTRAIL
              * Santa_Fe 12 59 114 59
              * Yakutsk 21 08 23 113 (9)
              * Guam 08 53 78 37 (10)
+             * Indiana_[east] 19 45 19 60 [-5]
             */
             List<String> listOfResult = new List<string>();
             String[] datas = textBox1.Text.Split(' ');
@@ -966,7 +967,10 @@ namespace ITGTRAIL
                 int x = Convert.ToInt16(datas[i]);
                 int y = Convert.ToInt16(datas[i + 1]);
                 Double xxx = GetDistance(_startX, _startY, x, y);
-                dict.Add(xxx, x + " " + y);
+                if (!dict.ContainsKey(xxx))
+                {
+                    dict.Add(xxx, x + " " + y);
+                }
                 Console.WriteLine();
 
             }
@@ -1350,6 +1354,12 @@ namespace ITGTRAIL
             //[19]
             //.*. **. *.. .*. .** *.* .** ... *.. ..* *** .*. **. *** *.. *.. .*. *** *.. ... *.* **. .** **. **. ... .** .*. ..* ... .*. *** .** *** ... **. .** *** *.. ... .** *** *** ... **. .*. *.. *** ... *..
             //[17]
+            //*.* ..* ..* *.* ..* ... *.. *** *.* **. .** *.. .*. .*. *.. ..* *.. **. ... .*. ..* *.* ... ..* *** *.* ..* ... *.* **. ... *** *.. *** .** *.. .** *.. *.. *** *.* **. *** .** **. *.* .** *.* *.* **.
+            //[26]
+            //.*. ... **. .** .** ... .*. .** .** ... .** *** .** ..* *.. ... *.* *.* .*. .*. **. ..* *** .*. *.. .** *.* *** *** .** .** .** .** *.* *.* ... *.* **. **. **. *** ..* .** .** *.* **. **. .** .** ...
+            //[26]
+            //*.* *** .** .*. *** ... .** ... *.. .** **. ..* ..* *.. *** *** *.. *.* .** *** .*. *** **. **. *** .*. *** .*. ... .*. *.. ..* .** *** *.* ... *** **. .** *.* .*. *** *.* **. .** ... *.* *.. **. *..
+            //[31]
              * */
             List<String> workedPos = new List<string>();
             int result = 0;
@@ -1538,16 +1548,36 @@ namespace ITGTRAIL
 
 
              */
+            String[] datas = textBox1.Text.Split(' ');
+            String resultxxx = intersection2(datas[0], datas[1]);
 
-            bool result = anagramChecker("ZAADFASDMTLQAUWAAAAHEHALAADAFAENKASASABEFBPGJQROVG", "AAAAHAAAAEGAEAAFUABBJFNAAAATEFDPHDOKLQQRSSSVZLDGMW");
+            var nonintersect = datas[0].ToCharArray().Except(datas[1].ToCharArray()).Union(datas[1].ToCharArray().Except(datas[0].ToCharArray()));
+            foreach(var item in nonintersect)
+            {
+                Console.WriteLine(String.Format("{0}\r\n",String.Join(" ",item   )));
+            }
+
+            //bool result = anagramChecker("ZAADFASDMTLQAUWAAAAHEHALAADAFAENKASASABEFBPGJQROVG", "AAAAHAAAAEGAEAAFUABBJFNAAAATEFDPHDOKLQQRSSSVZLDGMW");
             Console.WriteLine();
 
-            List<String> listOfWord = new List<String>();
-            listOfWord.Add("ZAADFASDMTLQAUWAAAAHEHALAADAFAENKASASABEFBPGJQROVG");
+            //List<String> listOfWord = new List<String>();
+            //listOfWord.Add("ZAADFASDMTLQAUWAAAAHEHALAADAFAENKASASABEFBPGJQROVG");
 
-            PairAnagrams(listOfWord);
+            //PairAnagrams(listOfWord);
         }
+        public static string intersection2(string x1, string x2)
+        {
+            string[] string1 = String.Join(" ",x1.ToCharArray()).Split(' ');// x1.Split(' ');
+            string[] string2 = String.Join(" ", x2.ToCharArray()).Split(' ');
+            var m = string1.Distinct();
+            var n = string2.Distinct();
 
+            var results = m.Intersect(n, StringComparer.OrdinalIgnoreCase);
+            //The result is a list of string, so we just have to concat them
+            var test = " ";
+            foreach (var k in results) test += k + " ";
+            return test;
+        }
         public Dictionary<string, string> PairAnagrams(List<string> words)
         {
             Dictionary<string, string> pairedAnagrams = new Dictionary<string, string>();
@@ -1823,6 +1853,33 @@ namespace ITGTRAIL
 
             //}
             return isMatch;
+        }
+
+        private void button28_Click(object sender, EventArgs e)
+        {
+            //0 1 3 0 3 1 1 4 3 2 3 3 2 4 2 3 4 4 | 0 1
+            textBox6.Text = String.Empty;
+            String[] datas = textBox1.Text.Split('|');
+            String[] TOWNER = datas[1].Split(' ');
+            String[] townList = datas[0].Split(' ');
+            int result = 0;
+            for(int i = 0; i < townList.Length-3; i += 3)
+            {
+                String A = townList[i];
+                String B = townList[i+1];
+                int C = Convert.ToInt16(townList[i + 2]);
+                Boolean isss = false;
+                if (TOWNER.Contains(B))
+                {
+                    result += C;
+                    isss = true;
+                }
+                textBox6.Text += String.Format("{0}   {1}   {2}   {3}\r\n", townList[i], townList[i+1], townList[i+2],(isss)? "*":"");
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+            textBox2.Text = result.ToString();
+            Clipboard.SetText(textBox2.Text);
         }
     }
 
