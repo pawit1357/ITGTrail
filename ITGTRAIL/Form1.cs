@@ -1376,7 +1376,7 @@ namespace ITGTRAIL
         * 1 1 0 
         * sample output: 5
         */
-            String[] matrix =  textBox1.Text.Replace('.', '0').Replace('*', '1').Split(' ');
+            String[] matrix = textBox1.Text.Replace('.', '0').Replace('*', '1').Split(' ');
             #region "TEST01"
             //Dictionary<String, String> db = new Dictionary<string, string>();
             //db.Add("001", "011,101,111");
@@ -1430,7 +1430,7 @@ namespace ITGTRAIL
 
             for (int i = 0; i < rows; i++)
             {
-                textBox6.Text += String.Format("{0}\r\n",String.Join(" ",matrix[i].ToCharArray()));
+                textBox6.Text += String.Format("{0}\r\n", String.Join(" ", matrix[i].ToCharArray()));
                 string[] colA = String.Join(" ", matrix[i].ToCharArray()).Split(' ');
                 for (int j = 0; j < cols; j++)
                     arr[i, j] = Convert.ToInt32(colA[j]);
@@ -1442,10 +1442,10 @@ namespace ITGTRAIL
             Clipboard.SetText(textBox2.Text);
             Console.WriteLine();
         }
-        public List<int> findColHaveBompByRow(String[] _datas,int startRow,int col)
+        public List<int> findColHaveBompByRow(String[] _datas, int startRow, int col)
         {
             List<int> pos = new List<int>();
-            for (int r = (startRow+1); r < _datas.Length; r++)
+            for (int r = (startRow + 1); r < _datas.Length; r++)
             {
                 Char[] currentLines = _datas[r].ToCharArray();
                 if (currentLines[col] == '1')
@@ -1529,6 +1529,28 @@ namespace ITGTRAIL
             return result;
         }
 
+        IEnumerable<List<T>> Permutations<T>(List<T> items)
+        {
+            if (items.Count == 0) yield return new List<T>();
+
+            var copy = new List<T>(items);
+            foreach (var i in items)
+            {
+                copy.Remove(i);
+                foreach (var rest in Permutations(copy))
+                {
+                    rest.Insert(0, i);
+                    yield return rest;
+                }
+                copy.Insert(0, i);
+            }
+
+        }
+
+        IEnumerable<string> Anagrams(string word)
+        {
+            return Permutations(word.ToCharArray().ToList()).Select(x => new String(x.ToArray()));
+        }
         private void button26_Click(object sender, EventArgs e)
         {
             /*
@@ -1538,6 +1560,8 @@ namespace ITGTRAIL
 50
 ..W...DQ.Y...DZ.U....FT.E..UV.BV..SMT.....V.E...W. ...CT..VTFVIWX...PF...TD.H...HU..V.PB.L...EEEV....
 [AAWAAADQAYAAADZAUAAAAFTAEAAUVABVCESMTFHHILVPEPTVWX AAACTAAVTFVIWXAAAPFAAATDAHAAAHUAAVAPBDLMQSEEEVUWYZ]
+ AAWAAADQAYAAADZAUAAAAFTAEAAUVABVAASMTAAAAAVAEAAAWA 
+ AAWAAADQAYAAADZAUAAAAFTAEAAUVABVAASMTAAAACVHEILPWX AAACTAAVTFVIWXAAAPFAAATDAHAAAHUAAVAPBALAAMEEEVQSYZ
 ----------------------------
 25......TC..P.E.GBJ....W..U ....EOKBCU.TJB...Y.W....E
 [ AAAAAATCAAPAEAGBJABEKWOYU AAAAEOKBCUATJBAAAYAWAAGPE]
@@ -1545,29 +1569,133 @@ namespace ITGTRAIL
 [CGYPOS PSYOGC]
 ..FLT L.PTF
 [APFLT LAPTF]
-
-
              */
-            String[] datas = textBox1.Text.Split(' ');
-            String resultxxx = intersection2(datas[0], datas[1]);
 
-            var nonintersect = datas[0].ToCharArray().Except(datas[1].ToCharArray()).Union(datas[1].ToCharArray().Except(datas[0].ToCharArray()));
-            foreach(var item in nonintersect)
+            String[] datas = textBox1.Text.Split(' ');
+            int dotALength = Regex.Matches(datas[0].ToString(), "\\.").Count;
+            int dotBLength = Regex.Matches(datas[1].ToString(), "\\.").Count;
+
+
+            char[] _aChars = datas[0].Replace(".", "").Trim().ToCharArray();
+            char[] _bChars = datas[1].Replace(".", "").Trim().ToCharArray();
+            StringBuilder aChar = new StringBuilder(String.Join("", _aChars));
+            StringBuilder bChar = new StringBuilder(String.Join("", _bChars));
+            StringBuilder tmpBChar = new StringBuilder(String.Join("", _bChars));
+            List<String> A = new List<String>();
+            List<String> B = new List<String>();
+            List<String> tempA = new List<String>();
+
+            for (int i = 0; i < bChar.Length; i++)
             {
-                Console.WriteLine(String.Format("{0}\r\n",String.Join(" ",item   )));
+                String letter = bChar[i].ToString();
+
+                if (aChar.ToString().IndexOf(letter) != -1)
+                {
+                    if (!tempA.Contains(letter))
+                    {
+                        tempA.Add(letter);
+                        bChar[i] = '-';
+                    }
+                    Console.WriteLine();
+                }
+            }
+            for (int i = 0; i < bChar.Length; i++)
+            {
+                if (bChar[i] != '-')
+                    B.Add(bChar[i].ToString());
+            }
+            Console.WriteLine();
+            //////
+            List<String> tempB = new List<String>();
+
+            for (int i = 0; i < aChar.Length; i++)
+            {
+                String letter = aChar[i].ToString();
+
+                if (tmpBChar.ToString().IndexOf(letter) != -1)
+                {
+                    if (!tempB.Contains(letter))
+                    {
+                        tempB.Add(letter);
+                        aChar[i] = '-';
+                    }
+                    Console.WriteLine();
+                }
+            }
+            for (int i = 0; i < aChar.Length; i++)
+            {
+                if (aChar[i] != '-')
+                    A.Add(aChar[i].ToString());
+            }
+            ////
+
+
+
+
+            A.Sort();
+            B.Sort();
+            //make anagram a
+            StringBuilder AAALAST = new StringBuilder();
+            int ARemain = dotALength - B.Count;
+            for (int i = 0; i < B.Count; i++)
+            {
+                AAALAST.Append(B[i]);
             }
 
-            //bool result = anagramChecker("ZAADFASDMTLQAUWAAAAHEHALAADAFAENKASASABEFBPGJQROVG", "AAAAHAAAAEGAEAAFUABBJFNAAAATEFDPHDOKLQQRSSSVZLDGMW");
-            Console.WriteLine();
+            StringBuilder AAAFIRST = new StringBuilder();
+            for (int i = 0; i < ARemain; i++)
+            {
+                AAAFIRST.Append("A");
+            }
+            AAAFIRST.Append(AAALAST.ToString());
+            ///
 
-            //List<String> listOfWord = new List<String>();
-            //listOfWord.Add("ZAADFASDMTLQAUWAAAAHEHALAADAFAENKASASABEFBPGJQROVG");
+            StringBuilder BBBLAST = new StringBuilder();
+            int BRemain = dotBLength - A.Count;
 
-            //PairAnagrams(listOfWord);
+            for (int i = 0; i < A.Count; i++)
+            {
+                BBBLAST.Append(A[i]);
+            }
+
+            StringBuilder BBBFIRST = new StringBuilder();
+            for (int i = 0; i < BRemain; i++)
+            {
+                BBBFIRST.Append("A");
+            }
+            BBBFIRST.Append(BBBLAST.ToString());
+
+            StringBuilder ResultA = new StringBuilder(datas[0]);
+            int indexA = 0;
+            for (int i = 0; i < ResultA.Length; i++)
+            {
+                if (ResultA[i] == '.')
+                {
+                    ResultA[i] = AAAFIRST[indexA];
+                    indexA++;
+                }
+            }
+            StringBuilder ResultB = new StringBuilder(datas[1]);
+            int indexB = 0;
+            for (int i = 0; i < ResultB.Length; i++)
+            {
+                if (ResultB[i] == '.')
+                {
+                    ResultB[i] = BBBFIRST[indexB];
+                    indexB++;
+                }
+            }
+            textBox2.Text = String.Format("{0} {1}", ResultA.ToString(), ResultB.ToString());
+            Clipboard.SetText(textBox2.Text);
+
+
         }
+
+
+
         public static string intersection2(string x1, string x2)
         {
-            string[] string1 = String.Join(" ",x1.ToCharArray()).Split(' ');// x1.Split(' ');
+            string[] string1 = String.Join(" ", x1.ToCharArray()).Split(' ');// x1.Split(' ');
             string[] string2 = String.Join(" ", x2.ToCharArray()).Split(' ');
             var m = string1.Distinct();
             var n = string2.Distinct();
@@ -1863,10 +1991,10 @@ namespace ITGTRAIL
             String[] TOWNER = datas[1].Split(' ');
             String[] townList = datas[0].Split(' ');
             int result = 0;
-            for(int i = 0; i < townList.Length-3; i += 3)
+            for (int i = 0; i < townList.Length - 3; i += 3)
             {
                 String A = townList[i];
-                String B = townList[i+1];
+                String B = townList[i + 1];
                 int C = Convert.ToInt16(townList[i + 2]);
                 Boolean isss = false;
                 if (TOWNER.Contains(B))
@@ -1874,18 +2002,106 @@ namespace ITGTRAIL
                     result += C;
                     isss = true;
                 }
-                textBox6.Text += String.Format("{0}   {1}   {2}   {3}\r\n", townList[i], townList[i+1], townList[i+2],(isss)? "*":"");
+                textBox6.Text += String.Format("{0}   {1}   {2}   {3}\r\n", townList[i], townList[i + 1], townList[i + 2], (isss) ? "*" : "");
                 Console.WriteLine();
             }
             Console.WriteLine();
             textBox2.Text = result.ToString();
             Clipboard.SetText(textBox2.Text);
         }
+
+        private void button29_Click(object sender, EventArgs e)
+        {
+            int N = Convert.ToInt16(textBox1.Text.Split(' ')[0]);
+            int K = Convert.ToInt16(textBox1.Text.Split(' ')[1]);
+            String result = String.Join("", Enumerable.Range(1, N).ToArray());
+            var array = Enumerable.Range(1, N).ToArray(); // { 1, 2, 3, 4, 5 } 
+            int index = 1;
+            Boolean isLoop = true;
+            int resultValue = 1;
+            while (isLoop)
+            {
+                array.Rotate(index);
+                index++;
+                if (index % K == 0)
+                {
+                    resultValue++;
+                }
+                String compare = String.Join("", array);
+                if (result.Equals(compare))
+                {
+                    isLoop = false;
+                }
+
+            }
+            textBox2.Text = resultValue.ToString();
+            Clipboard.SetText(textBox2.Text);
+            Console.WriteLine();
+        }
+
+
+        private Random random = new Random();
+        public string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        private void button30_Click(object sender, EventArgs e)
+        {
+            Int64 K = Convert.ToInt64(textBox1.Text);
+            Int64 result = 0;
+            for (Int64 i = K; i < 1000000; i++)
+            {
+               Int64 tmp = i - Convert.ToInt64(String.Join("", i.ToString().ToCharArray().Reverse()));
+                if (tmp == K)
+                {
+                    result = i;
+                    break;
+                }
+            }
+
+            textBox2.Text = (result==0)? "NONE":result.ToString();
+            Clipboard.SetText(textBox2.Text);
+        }
     }
+
+
 
 
 }
 
+
+public static class Algorithms
+{
+    public static void Rotate<T>(this T[] array, int count)
+    {
+        if (array == null || array.Length < 2) return;
+        count %= array.Length;
+        if (count == 0) return;
+        int left = count < 0 ? -count : array.Length + count;
+        int right = count > 0 ? count : array.Length - count;
+        if (left <= right)
+        {
+            for (int i = 0; i < left; i++)
+            {
+                var temp = array[0];
+                Array.Copy(array, 1, array, 0, array.Length - 1);
+                array[array.Length - 1] = temp;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < right; i++)
+            {
+                var temp = array[array.Length - 1];
+                Array.Copy(array, 0, array, 1, array.Length - 1);
+                array[0] = temp;
+            }
+        }
+    }
+}
 public class Q06Result
 {
     public String word { get; set; }
