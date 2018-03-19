@@ -1,5 +1,4 @@
-﻿using Combinatorics.Collections;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -1158,25 +1157,25 @@ namespace ITGTRAIL
             char[] inputSet = datas[1].ToCharArray();
             SortedDictionary<String, String> dict = new SortedDictionary<String, String>();
 
-            foreach (String s in datas)
-            {
-                Permutations<char> permutations = new Permutations<char>(s.ToCharArray());
-                foreach (IList<char> p in permutations)
-                {
-                    StringBuilder letter = new StringBuilder();
-                    for (int i = 0; i < p.Count; i++)
-                    {
-                        letter.Append(p[i]);
-                    }
-                    if (!dict.ContainsKey(letter.ToString()))
-                    {
-                        dict.Add(letter.ToString(), letter.ToString());
-                    }
-                    Console.Write(String.Format("}}"));
-                    Console.WriteLine();
-                }
+            //foreach (String s in datas)
+            //{
+            //    Permutations<char> permutations = new Permutations<char>(s.ToCharArray());
+            //    foreach (IList<char> p in permutations)
+            //    {
+            //        StringBuilder letter = new StringBuilder();
+            //        for (int i = 0; i < p.Count; i++)
+            //        {
+            //            letter.Append(p[i]);
+            //        }
+            //        if (!dict.ContainsKey(letter.ToString()))
+            //        {
+            //            dict.Add(letter.ToString(), letter.ToString());
+            //        }
+            //        Console.Write(String.Format("}}"));
+            //        Console.WriteLine();
+            //    }
 
-            }
+            //}
             Console.WriteLine();
             //SortedDictionary<int, int> dict = new SortedDictionary<int, int>();
 
